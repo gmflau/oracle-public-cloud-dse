@@ -1,0 +1,9 @@
+{
+  "locations": [
+    "eastus",
+    "centralus",
+    "westus"
+  ],
+  "nodeCount": 10,
+  "vmSize": "small"
+}
