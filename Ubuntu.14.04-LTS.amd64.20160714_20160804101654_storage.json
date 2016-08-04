@@ -1,0 +1,40 @@
+{
+  "relationships" : [ ],
+  "account" : "/Compute-usoracle19809/default",
+  "description" : "",
+  "schedule" : {
+    "start_time" : "2016-08-04T17:23:03Z",
+    "stop_time" : null
+  },
+  "oplans" : [ {
+    "obj_type" : "storage/volume",
+    "ha_policy" : "",
+    "label" : "Ubuntu.14.04-LTS.amd64.20160714_20160804101654_storage",
+    "objects" : [ {
+      "managed" : true,
+      "snapshot_id" : null,
+      "snapshot_account" : null,
+      "machineimage_name" : "/Compute-usoracle19809/anoop.srivastava@oracle.com/Ubuntu.14.04-LTS.amd64.20160714",
+      "status_timestamp" : "2016-08-04T17:31:48Z",
+      "imagelist" : "/Compute-usoracle19809/anoop.srivastava@oracle.com/Ubuntu.14.04-LTS.amd64.20160714",
+      "writecache" : false,
+      "size" : "10737418240",
+      "storage_pool" : "/compute-us6-z27/lpeis01nas58-v1_multipath/storagepool/iscsi/thruput_2",
+      "shared" : false,
+      "status" : "Online",
+      "description" : "",
+      "tags" : [ ],
+      "quota" : null,
+      "properties" : [ "/oracle/public/storage/default" ],
+      "account" : "/Compute-usoracle19809/default",
+      "name" : "/Compute-usoracle19809/ben.lackey@datastax.com/Ubuntu.14.04-LTS.amd64.20160714_20160804101654_storage",
+      "bootable" : true,
+      "hypervisor" : null,
+      "uri" : null,
+      "imagelist_entry" : 1,
+      "snapshot" : null
+    } ]
+  } ],
+  "user" : "/Compute-usoracle19809/ben.lackey@datastax.com",
+  "name" : "/Compute-usoracle19809/ben.lackey@datastax.com/Ubuntu.14.04-LTS.amd64.20160714_20160804101654_storage"
+}
