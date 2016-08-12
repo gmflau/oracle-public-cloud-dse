@@ -1,5 +1,5 @@
 # oracle-compute-dse
-Scripts for deploying to Oracle Compute Cloud
+Scripts for deploying to Oracle Compute Cloud [Work In Progress]
 
 These don't work yet, sorry.
 
