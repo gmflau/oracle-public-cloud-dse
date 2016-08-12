@@ -1,0 +1,73 @@
+{
+  "description": "Simple orchestration plan with ssh keys and security list for 2 nodes",
+  "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/OL_orchestration2",
+  "oplans": [
+    {
+      "label": "oplan12_GMLOL2",
+      "obj_type": "launchplan",
+      "ha_policy": "active",
+      "objects": [
+        {
+          "instances": [
+            {
+              "storage_attachments": [
+                {
+                  "index": 1,
+                  "volume": "/Compute-usoracle19809/gilbert.lau@datastax.com/OL671"
+                }
+               ],
+               "boot_order": [1],
+               "virtio":"false",
+               "hostname":"gml.ol.host1",
+               "networking": {
+                 "eth0": {
+                   "seclists": ["/Compute-usoracle19809/default/default"],
+                   "nat": "ipreservation:/Compute-usoracle19809/gilbert.lau@datastax.com/GML_OL_IP_RSVP1"
+                  }
+                },
+                "attributes": {
+                  "userdata": {
+                    "pre-bootstrap": {
+                      "failonerror": "true",
+                      "script": ["mkdir /containership"]
+                     }
+                   }
+                },
+              "label": "OL_VM1",
+              "shape": "oc3",
+              "sshkeys": ["/Compute-usoracle19809/gilbert.lau@datastax.com/ocp_key_gml"]
+             },
+            {
+              "storage_attachments": [
+                {
+                  "index": 1,
+                  "volume": "/Compute-usoracle19809/gilbert.lau@datastax.com/OL67"
+                }
+              ],
+              "boot_order": [1],
+              "virtio":"false",
+              "hostname":"gml.ol.host",
+              "networking": {
+                "eth0": {
+                  "seclists": ["/Compute-usoracle19809/default/default"],
+                   "nat": "ipreservation:/Compute-usoracle19809/gilbert.lau@datastax.com/GML_OL_IP_RSVP"
+                 }
+               },
+              "attributes": {
+                "userdata": {
+                  "pre-bootstrap": {
+                    "failonerror": "true",
+                    "script": ["mkdir /containership"]
+                  }
+                }
+              },
+              "label": "OL_VM",
+              "shape": "oc3",
+              "sshkeys": ["/Compute-usoracle19809/gilbert.lau@datastax.com/ocp_key_gml"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

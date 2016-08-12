@@ -1,0 +1,27 @@
+{
+    "oplans": [
+        {
+            "obj_type": "ip/reservation", 
+            "objects": [
+                {
+                    "parentpool": "/oracle/public/ippool", 
+                    "permanent": "true", 
+                    "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/DSE_IP_0"
+                }, 
+                {
+                    "parentpool": "/oracle/public/ippool", 
+                    "permanent": "true", 
+                    "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/DSE_IP_1"
+                }, 
+                {
+                    "parentpool": "/oracle/public/ippool", 
+                    "permanent": "true", 
+                    "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/DSE_IP_2"
+                }
+            ], 
+            "label": "DSE IP Reservation"
+        }
+    ], 
+    "Description": "Plan to create static IP addresses for DataStax node", 
+    "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/DataStax_IP_Reservation_Plan"
+}

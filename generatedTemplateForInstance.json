@@ -1,0 +1,12 @@
+{
+    "description": "Orchestration plan to deploy OCC instance for DataStax node", 
+    "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/DataStax_Instance_Plan", 
+    "oplans": [
+        {
+            "ha_policy": "active", 
+            "label": "DataStax_Instance_Plan", 
+            "obj_type": "launchplan", 
+            "objects": []
+        }
+    ]
+}

@@ -1,0 +1,42 @@
+{
+    "description": "Master plan to spin up a DataStax node", 
+    "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/DataStax_Master_Plan", 
+    "oplans": [
+        {
+            "label": "DataStax_IP_Resv_Plan", 
+            "obj_type": "orchestration", 
+            "objects": [
+                {
+                    "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/DataStax_IP_Reservation_Plan"
+                }
+            ]
+        }, 
+        {
+            "label": "DataStax_Storage_Plan", 
+            "obj_type": "orchestration", 
+            "objects": [
+                {
+                    "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/DataStax_Storage_Plan"
+                }
+            ]
+        }, 
+        {
+            "label": "DataStax_Instance_Plan", 
+            "obj_type": "orchestration", 
+            "objects": [
+                {
+                    "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/DataStax_Instance_Plan"
+                }
+            ]
+        }
+    ], 
+    "relationships": [
+        {
+            "oplan1": "DataStax_IP_Resv_Plan", 
+            "oplan2": "DataStax_Storage_Plan", 
+            "oplan3": "DataStax_Instance_Plan", 
+            "type": "depends"
+        }
+    ], 
+    "status": "ready"
+}
