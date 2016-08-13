@@ -7,6 +7,7 @@
                 {
                     "instances": [
                         {
+                            "shape": "oc4", 
                             "networking": {
                                 "eth0": {
                                     "seclists": [
@@ -15,9 +16,22 @@
                                     "nat": "ipreservation:/Compute-usoracle19809/gilbert.lau@datastax.com/DSE_IP_3"
                                 }
                             }, 
+                            "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/dse.host.us6.0", 
                             "boot_order": [
                                 1
                             ], 
+                            "attributes": {
+                                "userdata": {
+                                    "pre-bootstrap": {
+                                        "failonerror": "false", 
+                                        "script": [
+                                            "curl https://raw.githubusercontent.com/DSPN/install-datastax-redhat/master/bin/sayHelloWorld.sh --output sayHelloWorld.sh", 
+                                            "chmod +x sayHelloWorld.sh", 
+                                            "./sayHelloWorld.sh"
+                                        ]
+                                    }
+                                }
+                            }, 
                             "storage_attachments": [
                                 {
                                     "volume": "/Compute-usoracle19809/gilbert.lau@datastax.com/us6.boot_vol.0", 
@@ -28,29 +42,13 @@
                                     "index": 2
                                 }
                             ], 
-                            "label": "dse.host.us6.0", 
-                            "shape": "oc4", 
-                            "attributes": {
-                                "userdata": {
-                                    "pre-bootstrap": {
-                                        "failonerror": "true", 
-                                        "scriptURL": [
-                                            "https://github.com/DSPN/install-datastax-redhat/blob/master/bin/sayHelloWorld.sh"
-                                        ], 
-                                        "script": [
-                                            "mkdir /containership3"
-                                        ]
-                                    }, 
-                                    "packages": [
-                                        "git"
-                                    ]
-                                }
-                            }, 
                             "sshkeys": [
                                 "/Compute-usoracle19809/gilbert.lau@datastax.com/ocp_key_gml"
-                            ]
+                            ], 
+                            "label": "dse.host.us6.0"
                         }, 
                         {
+                            "shape": "oc4", 
                             "networking": {
                                 "eth0": {
                                     "seclists": [
@@ -59,9 +57,22 @@
                                     "nat": "ipreservation:/Compute-usoracle19809/gilbert.lau@datastax.com/DSE_IP_2"
                                 }
                             }, 
+                            "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/dse.host.opscenter.0", 
                             "boot_order": [
                                 1
                             ], 
+                            "attributes": {
+                                "userdata": {
+                                    "pre-bootstrap": {
+                                        "failonerror": "false", 
+                                        "script": [
+                                            "curl https://raw.githubusercontent.com/DSPN/install-datastax-redhat/master/bin/sayHelloWorld.sh --output sayHelloWorld.sh", 
+                                            "chmod +x sayHelloWorld.sh", 
+                                            "./sayHelloWorld.sh"
+                                        ]
+                                    }
+                                }
+                            }, 
                             "storage_attachments": [
                                 {
                                     "volume": "/Compute-usoracle19809/gilbert.lau@datastax.com/opscenter.boot_vol", 
@@ -72,29 +83,13 @@
                                     "index": 2
                                 }
                             ], 
-                            "label": "dse.host.opscenter.0", 
-                            "shape": "oc4", 
-                            "attributes": {
-                                "userdata": {
-                                    "pre-bootstrap": {
-                                        "failonerror": "true", 
-                                        "scriptURL": [
-                                            "https://github.com/DSPN/install-datastax-redhat/blob/master/bin/sayHelloWorld.sh"
-                                        ], 
-                                        "script": [
-                                            "mkdir /containership3"
-                                        ]
-                                    }, 
-                                    "packages": [
-                                        "git"
-                                    ]
-                                }
-                            }, 
                             "sshkeys": [
                                 "/Compute-usoracle19809/gilbert.lau@datastax.com/ocp_key_gml"
-                            ]
+                            ], 
+                            "label": "dse.host.opscenter.0"
                         }, 
                         {
+                            "shape": "oc4", 
                             "networking": {
                                 "eth0": {
                                     "seclists": [
@@ -103,9 +98,22 @@
                                     "nat": "ipreservation:/Compute-usoracle19809/gilbert.lau@datastax.com/DSE_IP_1"
                                 }
                             }, 
+                            "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/dse.host.us2.0", 
                             "boot_order": [
                                 1
                             ], 
+                            "attributes": {
+                                "userdata": {
+                                    "pre-bootstrap": {
+                                        "failonerror": "false", 
+                                        "script": [
+                                            "curl https://raw.githubusercontent.com/DSPN/install-datastax-redhat/master/bin/sayHelloWorld.sh --output sayHelloWorld.sh", 
+                                            "chmod +x sayHelloWorld.sh", 
+                                            "./sayHelloWorld.sh"
+                                        ]
+                                    }
+                                }
+                            }, 
                             "storage_attachments": [
                                 {
                                     "volume": "/Compute-usoracle19809/gilbert.lau@datastax.com/us2.boot_vol.0", 
@@ -116,29 +124,13 @@
                                     "index": 2
                                 }
                             ], 
-                            "label": "dse.host.us2.0", 
-                            "shape": "oc4", 
-                            "attributes": {
-                                "userdata": {
-                                    "pre-bootstrap": {
-                                        "failonerror": "true", 
-                                        "scriptURL": [
-                                            "https://github.com/DSPN/install-datastax-redhat/blob/master/bin/sayHelloWorld.sh"
-                                        ], 
-                                        "script": [
-                                            "mkdir /containership3"
-                                        ]
-                                    }, 
-                                    "packages": [
-                                        "git"
-                                    ]
-                                }
-                            }, 
                             "sshkeys": [
                                 "/Compute-usoracle19809/gilbert.lau@datastax.com/ocp_key_gml"
-                            ]
+                            ], 
+                            "label": "dse.host.us2.0"
                         }, 
                         {
+                            "shape": "oc4", 
                             "networking": {
                                 "eth0": {
                                     "seclists": [
@@ -147,9 +139,22 @@
                                     "nat": "ipreservation:/Compute-usoracle19809/gilbert.lau@datastax.com/DSE_IP_0"
                                 }
                             }, 
+                            "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/dse.host.us1.0", 
                             "boot_order": [
                                 1
                             ], 
+                            "attributes": {
+                                "userdata": {
+                                    "pre-bootstrap": {
+                                        "failonerror": "false", 
+                                        "script": [
+                                            "curl https://raw.githubusercontent.com/DSPN/install-datastax-redhat/master/bin/sayHelloWorld.sh --output sayHelloWorld.sh", 
+                                            "chmod +x sayHelloWorld.sh", 
+                                            "./sayHelloWorld.sh"
+                                        ]
+                                    }
+                                }
+                            }, 
                             "storage_attachments": [
                                 {
                                     "volume": "/Compute-usoracle19809/gilbert.lau@datastax.com/us1.boot_vol.0", 
@@ -160,27 +165,10 @@
                                     "index": 2
                                 }
                             ], 
-                            "label": "dse.host.us1.0", 
-                            "shape": "oc4", 
-                            "attributes": {
-                                "userdata": {
-                                    "pre-bootstrap": {
-                                        "failonerror": "true", 
-                                        "scriptURL": [
-                                            "https://github.com/DSPN/install-datastax-redhat/blob/master/bin/sayHelloWorld.sh"
-                                        ], 
-                                        "script": [
-                                            "mkdir /containership3"
-                                        ]
-                                    }, 
-                                    "packages": [
-                                        "git"
-                                    ]
-                                }
-                            }, 
                             "sshkeys": [
                                 "/Compute-usoracle19809/gilbert.lau@datastax.com/ocp_key_gml"
-                            ]
+                            ], 
+                            "label": "dse.host.us1.0"
                         }
                     ]
                 }

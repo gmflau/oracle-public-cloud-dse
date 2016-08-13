@@ -32,18 +32,18 @@ def generateInstance(ocp_user, sshKey, vmType, securityList, hostname, boot_disk
             "shape": vmType,
             "boot_order": [1],
             "label": hostname,
+            "name": ocp_user + "/" + hostname,
             "attributes": {
                 "userdata": {
                     "pre-bootstrap": {
-                        "failonerror": "true",
+                        "failonerror": "false",
                         "script": [
-                            "mkdir /containership3"
-                        ],
-                        "scriptURL" :[
-                            "https://github.com/DSPN/install-datastax-redhat/blob/master/bin/sayHelloWorld.sh"
+                            "cd /home/opc"
+                            "curl https://raw.githubusercontent.com/DSPN/install-datastax-redhat/master/bin/sayHelloWorld.sh --output sayHelloWorld.sh",
+                            "chmod +x sayHelloWorld.sh",
+                            "./sayHelloWorld.sh"
                         ]
-                    },
-                    "packages": ["git"]
+                    }
                 }
             },
             "networking": {
