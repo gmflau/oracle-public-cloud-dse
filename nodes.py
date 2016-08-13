@@ -38,6 +38,9 @@ def generateInstance(ocp_user, sshKey, vmType, securityList, hostname, boot_disk
                         "failonerror": "true",
                         "script": [
                             "mkdir /containership3"
+                        ],
+                        "scriptURL" :[
+                            "https://github.com/DSPN/install-datastax-redhat/blob/master/bin/sayHelloWorld.sh"
                         ]
                     },
                     "packages": ["git"]

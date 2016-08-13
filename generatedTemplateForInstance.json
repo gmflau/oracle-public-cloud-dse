@@ -34,6 +34,9 @@
                                 "userdata": {
                                     "pre-bootstrap": {
                                         "failonerror": "true", 
+                                        "scriptURL": [
+                                            "https://github.com/DSPN/install-datastax-redhat/blob/master/bin/sayHelloWorld.sh"
+                                        ], 
                                         "script": [
                                             "mkdir /containership3"
                                         ]
@@ -75,6 +78,9 @@
                                 "userdata": {
                                     "pre-bootstrap": {
                                         "failonerror": "true", 
+                                        "scriptURL": [
+                                            "https://github.com/DSPN/install-datastax-redhat/blob/master/bin/sayHelloWorld.sh"
+                                        ], 
                                         "script": [
                                             "mkdir /containership3"
                                         ]
@@ -116,6 +122,9 @@
                                 "userdata": {
                                     "pre-bootstrap": {
                                         "failonerror": "true", 
+                                        "scriptURL": [
+                                            "https://github.com/DSPN/install-datastax-redhat/blob/master/bin/sayHelloWorld.sh"
+                                        ], 
                                         "script": [
                                             "mkdir /containership3"
                                         ]
@@ -157,6 +166,9 @@
                                 "userdata": {
                                     "pre-bootstrap": {
                                         "failonerror": "true", 
+                                        "scriptURL": [
+                                            "https://github.com/DSPN/install-datastax-redhat/blob/master/bin/sayHelloWorld.sh"
+                                        ], 
                                         "script": [
                                             "mkdir /containership3"
                                         ]
