@@ -1,12 +1,181 @@
 {
-    "description": "Orchestration plan to deploy OCC instance for DataStax node", 
-    "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/DataStax_Instance_Plan", 
     "oplans": [
         {
-            "ha_policy": "active", 
-            "label": "DataStax_Instance_Plan", 
             "obj_type": "launchplan", 
-            "objects": []
+            "ha_policy": "active", 
+            "objects": [
+                {
+                    "instances": [
+                        {
+                            "networking": {
+                                "eth0": {
+                                    "seclists": [
+                                        "/Compute-usoracle19809/gilbert.lau@datastax.com/DSE_Seclist"
+                                    ], 
+                                    "nat": "ipreservation:/Compute-usoracle19809/gilbert.lau@datastax.com/DSE_IP_3"
+                                }
+                            }, 
+                            "boot_order": [
+                                1
+                            ], 
+                            "storage_attachments": [
+                                {
+                                    "volume": "/Compute-usoracle19809/gilbert.lau@datastax.com/us6.boot_vol.0", 
+                                    "index": 1
+                                }, 
+                                {
+                                    "volume": "/Compute-usoracle19809/gilbert.lau@datastax.com/us6.app_data_vol.0", 
+                                    "index": 2
+                                }
+                            ], 
+                            "label": "dse.host.us6.0", 
+                            "shape": "oc4", 
+                            "attributes": {
+                                "userdata": {
+                                    "pre-bootstrap": {
+                                        "failonerror": "true", 
+                                        "script": [
+                                            "mkdir /containership3"
+                                        ]
+                                    }, 
+                                    "packages": [
+                                        "git"
+                                    ]
+                                }
+                            }, 
+                            "sshkeys": [
+                                "/Compute-usoracle19809/gilbert.lau@datastax.com/ocp_key_gml"
+                            ]
+                        }, 
+                        {
+                            "networking": {
+                                "eth0": {
+                                    "seclists": [
+                                        "/Compute-usoracle19809/gilbert.lau@datastax.com/DSE_Seclist"
+                                    ], 
+                                    "nat": "ipreservation:/Compute-usoracle19809/gilbert.lau@datastax.com/DSE_IP_2"
+                                }
+                            }, 
+                            "boot_order": [
+                                1
+                            ], 
+                            "storage_attachments": [
+                                {
+                                    "volume": "/Compute-usoracle19809/gilbert.lau@datastax.com/opscenter.boot_vol", 
+                                    "index": 1
+                                }, 
+                                {
+                                    "volume": "/Compute-usoracle19809/gilbert.lau@datastax.com/opscenter.app_data_vol", 
+                                    "index": 2
+                                }
+                            ], 
+                            "label": "dse.host.opscenter.0", 
+                            "shape": "oc4", 
+                            "attributes": {
+                                "userdata": {
+                                    "pre-bootstrap": {
+                                        "failonerror": "true", 
+                                        "script": [
+                                            "mkdir /containership3"
+                                        ]
+                                    }, 
+                                    "packages": [
+                                        "git"
+                                    ]
+                                }
+                            }, 
+                            "sshkeys": [
+                                "/Compute-usoracle19809/gilbert.lau@datastax.com/ocp_key_gml"
+                            ]
+                        }, 
+                        {
+                            "networking": {
+                                "eth0": {
+                                    "seclists": [
+                                        "/Compute-usoracle19809/gilbert.lau@datastax.com/DSE_Seclist"
+                                    ], 
+                                    "nat": "ipreservation:/Compute-usoracle19809/gilbert.lau@datastax.com/DSE_IP_1"
+                                }
+                            }, 
+                            "boot_order": [
+                                1
+                            ], 
+                            "storage_attachments": [
+                                {
+                                    "volume": "/Compute-usoracle19809/gilbert.lau@datastax.com/us2.boot_vol.0", 
+                                    "index": 1
+                                }, 
+                                {
+                                    "volume": "/Compute-usoracle19809/gilbert.lau@datastax.com/us2.app_data_vol.0", 
+                                    "index": 2
+                                }
+                            ], 
+                            "label": "dse.host.us2.0", 
+                            "shape": "oc4", 
+                            "attributes": {
+                                "userdata": {
+                                    "pre-bootstrap": {
+                                        "failonerror": "true", 
+                                        "script": [
+                                            "mkdir /containership3"
+                                        ]
+                                    }, 
+                                    "packages": [
+                                        "git"
+                                    ]
+                                }
+                            }, 
+                            "sshkeys": [
+                                "/Compute-usoracle19809/gilbert.lau@datastax.com/ocp_key_gml"
+                            ]
+                        }, 
+                        {
+                            "networking": {
+                                "eth0": {
+                                    "seclists": [
+                                        "/Compute-usoracle19809/gilbert.lau@datastax.com/DSE_Seclist"
+                                    ], 
+                                    "nat": "ipreservation:/Compute-usoracle19809/gilbert.lau@datastax.com/DSE_IP_0"
+                                }
+                            }, 
+                            "boot_order": [
+                                1
+                            ], 
+                            "storage_attachments": [
+                                {
+                                    "volume": "/Compute-usoracle19809/gilbert.lau@datastax.com/us1.boot_vol.0", 
+                                    "index": 1
+                                }, 
+                                {
+                                    "volume": "/Compute-usoracle19809/gilbert.lau@datastax.com/us1.app_data_vol.0", 
+                                    "index": 2
+                                }
+                            ], 
+                            "label": "dse.host.us1.0", 
+                            "shape": "oc4", 
+                            "attributes": {
+                                "userdata": {
+                                    "pre-bootstrap": {
+                                        "failonerror": "true", 
+                                        "script": [
+                                            "mkdir /containership3"
+                                        ]
+                                    }, 
+                                    "packages": [
+                                        "git"
+                                    ]
+                                }
+                            }, 
+                            "sshkeys": [
+                                "/Compute-usoracle19809/gilbert.lau@datastax.com/ocp_key_gml"
+                            ]
+                        }
+                    ]
+                }
+            ], 
+            "label": "DataStax_Instance_Plan"
         }
-    ]
+    ], 
+    "description": "Plan to deploy OCC instance for DataStax node", 
+    "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/DataStax_Instance_Plan"
 }

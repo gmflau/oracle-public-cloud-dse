@@ -1,0 +1,19 @@
+{
+    "oplans": [
+        {
+            "obj_type": "secrule", 
+            "objects": [
+                {
+                    "action": "PERMIT", 
+                    "application": "/oracle/public/all", 
+                    "dst_list": "seclist:/Compute-usoracle19809/gilbert.lau@datastax.com/DSE_Seclist", 
+                    "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/DSE_Rules", 
+                    "src_list": "seciplist:/oracle/public/public-internet"
+                }
+            ], 
+            "label": "DSE_Security_Rules"
+        }
+    ], 
+    "description": "Plan to create security rules", 
+    "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/DataStax_Security_Rules_Plan"
+}

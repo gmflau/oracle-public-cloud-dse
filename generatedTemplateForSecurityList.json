@@ -1,0 +1,15 @@
+{
+    "oplans": [
+        {
+            "obj_type": "seclist", 
+            "objects": [
+                {
+                    "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/DSE_Seclist"
+                }
+            ], 
+            "label": "admin-seclists"
+        }
+    ], 
+    "description": "Plan to create security list", 
+    "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/DataStax_Security_Lists_Plan"
+}
