@@ -6,7 +6,6 @@
             "type": "depends"
         }
     ], 
-    "status": "ready", 
     "oplans": [
         {
             "obj_type": "orchestration", 

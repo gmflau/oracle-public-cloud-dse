@@ -113,7 +113,6 @@ generatedTemplateForMaster = {
             "type": "depends"
         }
     ],
-    "status": "ready",
     "oplans": [
         {
             "label": "DataStax_Storage_Plan",
