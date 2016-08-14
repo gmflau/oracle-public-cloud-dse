@@ -1,8 +1,8 @@
 
 
-def generateIPs(ocp_user, networkName):
+def generateIPs(networkName):
     resource = {
-          "name": ocp_user + "/" + networkName,
+          "name": networkName,
           "parentpool": "/oracle/public/ippool",
           "permanent": "true"
         }
@@ -27,7 +27,7 @@ def generateStorageVols(ocp_user, osImage, boot_vol_name, app_data_vol_name, boo
     return resource
 
 
-def generateInstanceNode(ocp_user, sshKey, vmType, securityList, hostname, boot_disk, app_data_disk, ip_label):
+def generateInstanceNode(ocp_user, sshKey, vmType, securityList, hostname, boot_disk, app_data_disk, ip_label, seed_node_ip_addr, opscenter_ip_addr):
     resource = {
             "shape": vmType,
             "boot_order": [1],
@@ -41,7 +41,7 @@ def generateInstanceNode(ocp_user, sshKey, vmType, securityList, hostname, boot_
                             "cd /home/opc",
                             "curl https://raw.githubusercontent.com/DSPN/oracle-compute-cloud-dse/master/extensions/node.sh --output node.sh",
                             "chmod +x node.sh",
-                            "./node.sh"
+                            "./node.sh occ " + seed_node_ip_addr + " us2 " +  opscenter_ip_addr
                         ]
                     }
                 }
@@ -49,7 +49,7 @@ def generateInstanceNode(ocp_user, sshKey, vmType, securityList, hostname, boot_
             "networking": {
                 "eth0": {
                     "seclists": [ocp_user + "/" + securityList],
-                    "nat": "ipreservation:" + ocp_user + "/" + ip_label
+                    "nat": "ipreservation:" + ip_label
                 }
             },
             "sshkeys": [ocp_user + "/" + sshKey],
@@ -67,7 +67,7 @@ def generateInstanceNode(ocp_user, sshKey, vmType, securityList, hostname, boot_
     return resource
 
 
-def generateInstanceOpsCenter(ocp_user, sshKey, vmType, securityList, hostname, boot_disk, app_data_disk, ip_label):
+def generateInstanceOpsCenter(ocp_user, sshKey, vmType, securityList, hostname, boot_disk, app_data_disk, ip_label, seed_ip_label):
     resource = {
             "shape": vmType,
             "boot_order": [1],
@@ -81,7 +81,7 @@ def generateInstanceOpsCenter(ocp_user, sshKey, vmType, securityList, hostname, 
                             "cd /home/opc",
                             "curl https://raw.githubusercontent.com/DSPN/oracle-compute-cloud-dse/master/extensions/opsCenter.sh --output opsCenter.sh",
                             "chmod +x opsCenter.sh",
-                            "./opsCenter.sh"
+                            "./opsCenter.sh occ " + seed_ip_label
                         ]
                     }
                 }
@@ -89,7 +89,7 @@ def generateInstanceOpsCenter(ocp_user, sshKey, vmType, securityList, hostname, 
             "networking": {
                 "eth0": {
                     "seclists": [ocp_user + "/" + securityList],
-                    "nat": "ipreservation:" + ocp_user + "/" + ip_label
+                    "nat": "ipreservation:" + ip_label
                 }
             },
             "sshkeys": [ocp_user + "/" + sshKey],

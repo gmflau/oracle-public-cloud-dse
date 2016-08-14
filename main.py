@@ -3,7 +3,11 @@ import sys
 import nodes
 
 ip_pool = []
+ip_address_list = {}
 storage_pool = {}
+
+with open('cassandra_ip_pool.txt', 'r') as inputFile:
+   ip_pool = json.load(inputFile)
 
 with open('clusterParameters.json') as inputFile:
     clusterParameters = json.load(inputFile)
@@ -19,6 +23,13 @@ securityRules = clusterParameters['securityRules']
 sshKey = clusterParameters['sshKey']
 bootDriveSizeInBytes = clusterParameters['bootDriveSizeInBytes']
 appDataDriveSizeInBytes = clusterParameters['appDataDriveSizeInBytes']
+
+
+# Retrieve IP addresses from Oracle Cloud and insert them into a dictionary
+with open('ipListWithoutHeader.txt', 'r') as inputFile:
+   for line in inputFile:
+       splitLine = line.split()
+       ip_address_list[splitLine[0]] = splitLine[1]
 
 
 # We will use "dse_secList" as the security list
@@ -144,18 +155,6 @@ with open('generatedTemplateForSecurityList.json', 'w') as outputFile:
 with open('generatedTemplateForSecurityRules.json', 'w') as outputFile:
    json.dump(generatedTemplateForSecurityRules, outputFile, indent=4, ensure_ascii=False)
 
-
-# Provision static IPs for the DataStax Cassandra cluster + OpCenter
-for counter in range(0, len(locations)*nodeCount + 1):
-    networkName = networkPrefix + str(counter)
-    resources = nodes.generateIPs(OCP_USER, networkName)
-    ip_pool.append(networkName)
-    generatedTemplateForIPs['oplans'][0]['objects'].append(resources)
-
-with open('generatedTemplateForIPs.json', 'w') as outputFile:
-   json.dump(generatedTemplateForIPs, outputFile, indent=4, ensure_ascii=False)
-
-
 # Provision storage volumes for the DataStax Cassandra cluster
 for location, api_endpoint in locations.items():
     for nodeCounter in range(0, nodeCount):
@@ -180,20 +179,26 @@ with open('generatedTemplateForStorage.json', 'w') as outputFile:
     json.dump(generatedTemplateForStorage, outputFile, indent=4, ensure_ascii=False)
 
 
-# Provision cloud vm instances for the DataStax Cassandra cluster and OpsCenter
+# Provision cloud vm instances for OpsCenter and the DataStax Cassandra cluster
+hostname = "dse.host.opscenter"
+opscenter_ip_label = ip_pool.pop()
+opscenter_node_ip_addr = ip_address_list[opscenter_ip_label]
+# Pick the first IP in ip_pool as the Cassandra seed node IP
+seed_node_ip_addr = ip_address_list[ip_pool[0]]
+resources = nodes.generateInstanceOpsCenter(OCP_USER, sshKey, vmType, securityList, hostname,
+                                            storage_pool['opscenter'][0][0], storage_pool['opscenter'][0][1],
+                                            opscenter_ip_label, seed_node_ip_addr)
+generatedTemplateForInstance['oplans'][0]['objects'][0]['instances'].append(resources)
+
 for location, storage_vols in storage_pool.items():
     # there is only one opscenter in our environment
-    if location == 'opscenter':
-        hostname = "dse.host." + location
-        resources = nodes.generateInstanceOpsCenter(OCP_USER, sshKey, vmType, securityList, hostname,
-                                           storage_vols[0][0], storage_vols[0][1], ip_pool.pop())
-        generatedTemplateForInstance['oplans'][0]['objects'][0]['instances'].append(resources)
-    else:
+    if location != 'opscenter':
         index = 0
         for storage_disks in storage_vols:
             hostname = "dse.host." + location + "." + str(index)
             resources = nodes.generateInstanceNode(OCP_USER, sshKey, vmType, securityList, hostname,
-                                               storage_disks[0], storage_disks[1], ip_pool.pop())
+                                                   storage_disks[0], storage_disks[1], ip_pool.pop(),
+                                                   seed_node_ip_addr, opscenter_node_ip_addr)
             generatedTemplateForInstance['oplans'][0]['objects'][0]['instances'].append(resources)
             index += 1
 
