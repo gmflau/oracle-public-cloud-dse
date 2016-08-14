@@ -27,7 +27,7 @@ def generateStorageVols(ocp_user, osImage, boot_vol_name, app_data_vol_name, boo
     return resource
 
 
-def generateInstance(ocp_user, sshKey, vmType, securityList, hostname, boot_disk, app_data_disk, ip_label):
+def generateInstanceNode(ocp_user, sshKey, vmType, securityList, hostname, boot_disk, app_data_disk, ip_label):
     resource = {
             "shape": vmType,
             "boot_order": [1],
@@ -38,10 +38,50 @@ def generateInstance(ocp_user, sshKey, vmType, securityList, hostname, boot_disk
                     "pre-bootstrap": {
                         "failonerror": "false",
                         "script": [
-                            "cd /home/opc"
-                            "curl https://raw.githubusercontent.com/DSPN/install-datastax-redhat/master/bin/sayHelloWorld.sh --output sayHelloWorld.sh",
-                            "chmod +x sayHelloWorld.sh",
-                            "./sayHelloWorld.sh"
+                            "cd /home/opc",
+                            "curl https://github.com/DSPN/oracle-compute-cloud-dse/raw/master/extensions/node.sh --output node.sh",
+                            "chmod +x node.sh",
+                            "./node.sh"
+                        ]
+                    }
+                }
+            },
+            "networking": {
+                "eth0": {
+                    "seclists": [ocp_user + "/" + securityList],
+                    "nat": "ipreservation:" + ocp_user + "/" + ip_label
+                }
+            },
+            "sshkeys": [ocp_user + "/" + sshKey],
+            "storage_attachments": [
+                {
+                    "index": 1,
+                    "volume": ocp_user + "/" + boot_disk
+                },
+                {
+                    "index": 2,
+                    "volume": ocp_user + "/" + app_data_disk
+                }
+            ]
+    }
+    return resource
+
+
+def generateInstanceOpsCenter(ocp_user, sshKey, vmType, securityList, hostname, boot_disk, app_data_disk, ip_label):
+    resource = {
+            "shape": vmType,
+            "boot_order": [1],
+            "label": hostname,
+            "name": ocp_user + "/" + hostname,
+            "attributes": {
+                "userdata": {
+                    "pre-bootstrap": {
+                        "failonerror": "false",
+                        "script": [
+                            "cd /home/opc",
+                            "curl https://raw.githubusercontent.com/DSPN/oracle-compute-cloud-dse/master/extensions/opsCenter.sh --output opsCenter.sh",
+                            "chmod +x opsCenter.sh",
+                            "./opsCenter.sh"
                         ]
                     }
                 }

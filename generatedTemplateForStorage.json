@@ -7,22 +7,6 @@
                     "bootable": "true", 
                     "imagelist": "/oracle/public/OL_6.7_3GB-1.3.0-20160411", 
                     "size": "5368709120", 
-                    "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/us6.boot_vol.0", 
-                    "properties": [
-                        "/oracle/public/storage/default"
-                    ]
-                }, 
-                {
-                    "size": "21474836480", 
-                    "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/us6.app_data_vol.0", 
-                    "properties": [
-                        "/oracle/public/storage/latency"
-                    ]
-                }, 
-                {
-                    "bootable": "true", 
-                    "imagelist": "/oracle/public/OL_6.7_3GB-1.3.0-20160411", 
-                    "size": "5368709120", 
                     "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/us2.boot_vol.0", 
                     "properties": [
                         "/oracle/public/storage/default"
@@ -31,22 +15,6 @@
                 {
                     "size": "21474836480", 
                     "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/us2.app_data_vol.0", 
-                    "properties": [
-                        "/oracle/public/storage/latency"
-                    ]
-                }, 
-                {
-                    "bootable": "true", 
-                    "imagelist": "/oracle/public/OL_6.7_3GB-1.3.0-20160411", 
-                    "size": "5368709120", 
-                    "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/us1.boot_vol.0", 
-                    "properties": [
-                        "/oracle/public/storage/default"
-                    ]
-                }, 
-                {
-                    "size": "21474836480", 
-                    "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/us1.app_data_vol.0", 
                     "properties": [
                         "/oracle/public/storage/latency"
                     ]

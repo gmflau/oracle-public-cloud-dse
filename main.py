@@ -182,13 +182,20 @@ with open('generatedTemplateForStorage.json', 'w') as outputFile:
 
 # Provision cloud vm instances for the DataStax Cassandra cluster and OpsCenter
 for location, storage_vols in storage_pool.items():
-    index = 0
-    for storage_disks in storage_vols:
-        hostname = "dse.host." + location + "." + str(index)
-        resources = nodes.generateInstance(OCP_USER, sshKey, vmType, securityList, hostname,
-                                           storage_disks[0], storage_disks[1], ip_pool.pop())
+    # there is only one opscenter in our environment
+    if location == 'opscenter':
+        hostname = "dse.host." + location
+        resources = nodes.generateInstanceOpsCenter(OCP_USER, sshKey, vmType, securityList, hostname,
+                                           storage_vols[0][0], storage_vols[0][1], ip_pool.pop())
         generatedTemplateForInstance['oplans'][0]['objects'][0]['instances'].append(resources)
-        index += 1
+    else:
+        index = 0
+        for storage_disks in storage_vols:
+            hostname = "dse.host." + location + "." + str(index)
+            resources = nodes.generateInstanceNode(OCP_USER, sshKey, vmType, securityList, hostname,
+                                               storage_disks[0], storage_disks[1], ip_pool.pop())
+            generatedTemplateForInstance['oplans'][0]['objects'][0]['instances'].append(resources)
+            index += 1
 
 with open('generatedTemplateForInstance.json', 'w') as outputFile:
     json.dump(generatedTemplateForInstance, outputFile, indent=4, ensure_ascii=False)

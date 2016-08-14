@@ -13,88 +13,6 @@
                                     "seclists": [
                                         "/Compute-usoracle19809/gilbert.lau@datastax.com/DSE_Seclist"
                                     ], 
-                                    "nat": "ipreservation:/Compute-usoracle19809/gilbert.lau@datastax.com/DSE_IP_3"
-                                }
-                            }, 
-                            "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/dse.host.us6.0", 
-                            "boot_order": [
-                                1
-                            ], 
-                            "attributes": {
-                                "userdata": {
-                                    "pre-bootstrap": {
-                                        "failonerror": "false", 
-                                        "script": [
-                                            "curl https://raw.githubusercontent.com/DSPN/install-datastax-redhat/master/bin/sayHelloWorld.sh --output sayHelloWorld.sh", 
-                                            "chmod +x sayHelloWorld.sh", 
-                                            "./sayHelloWorld.sh"
-                                        ]
-                                    }
-                                }
-                            }, 
-                            "storage_attachments": [
-                                {
-                                    "volume": "/Compute-usoracle19809/gilbert.lau@datastax.com/us6.boot_vol.0", 
-                                    "index": 1
-                                }, 
-                                {
-                                    "volume": "/Compute-usoracle19809/gilbert.lau@datastax.com/us6.app_data_vol.0", 
-                                    "index": 2
-                                }
-                            ], 
-                            "sshkeys": [
-                                "/Compute-usoracle19809/gilbert.lau@datastax.com/ocp_key_gml"
-                            ], 
-                            "label": "dse.host.us6.0"
-                        }, 
-                        {
-                            "shape": "oc4", 
-                            "networking": {
-                                "eth0": {
-                                    "seclists": [
-                                        "/Compute-usoracle19809/gilbert.lau@datastax.com/DSE_Seclist"
-                                    ], 
-                                    "nat": "ipreservation:/Compute-usoracle19809/gilbert.lau@datastax.com/DSE_IP_2"
-                                }
-                            }, 
-                            "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/dse.host.opscenter.0", 
-                            "boot_order": [
-                                1
-                            ], 
-                            "attributes": {
-                                "userdata": {
-                                    "pre-bootstrap": {
-                                        "failonerror": "false", 
-                                        "script": [
-                                            "curl https://raw.githubusercontent.com/DSPN/install-datastax-redhat/master/bin/sayHelloWorld.sh --output sayHelloWorld.sh", 
-                                            "chmod +x sayHelloWorld.sh", 
-                                            "./sayHelloWorld.sh"
-                                        ]
-                                    }
-                                }
-                            }, 
-                            "storage_attachments": [
-                                {
-                                    "volume": "/Compute-usoracle19809/gilbert.lau@datastax.com/opscenter.boot_vol", 
-                                    "index": 1
-                                }, 
-                                {
-                                    "volume": "/Compute-usoracle19809/gilbert.lau@datastax.com/opscenter.app_data_vol", 
-                                    "index": 2
-                                }
-                            ], 
-                            "sshkeys": [
-                                "/Compute-usoracle19809/gilbert.lau@datastax.com/ocp_key_gml"
-                            ], 
-                            "label": "dse.host.opscenter.0"
-                        }, 
-                        {
-                            "shape": "oc4", 
-                            "networking": {
-                                "eth0": {
-                                    "seclists": [
-                                        "/Compute-usoracle19809/gilbert.lau@datastax.com/DSE_Seclist"
-                                    ], 
                                     "nat": "ipreservation:/Compute-usoracle19809/gilbert.lau@datastax.com/DSE_IP_1"
                                 }
                             }, 
@@ -107,9 +25,10 @@
                                     "pre-bootstrap": {
                                         "failonerror": "false", 
                                         "script": [
-                                            "curl https://raw.githubusercontent.com/DSPN/install-datastax-redhat/master/bin/sayHelloWorld.sh --output sayHelloWorld.sh", 
-                                            "chmod +x sayHelloWorld.sh", 
-                                            "./sayHelloWorld.sh"
+                                            "cd /home/opc", 
+                                            "curl https://github.com/DSPN/oracle-compute-cloud-dse/raw/master/extensions/node.sh --output node.sh", 
+                                            "chmod +x node.sh", 
+                                            "./node.sh"
                                         ]
                                     }
                                 }
@@ -139,7 +58,7 @@
                                     "nat": "ipreservation:/Compute-usoracle19809/gilbert.lau@datastax.com/DSE_IP_0"
                                 }
                             }, 
-                            "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/dse.host.us1.0", 
+                            "name": "/Compute-usoracle19809/gilbert.lau@datastax.com/dse.host.opscenter", 
                             "boot_order": [
                                 1
                             ], 
@@ -148,27 +67,28 @@
                                     "pre-bootstrap": {
                                         "failonerror": "false", 
                                         "script": [
-                                            "curl https://raw.githubusercontent.com/DSPN/install-datastax-redhat/master/bin/sayHelloWorld.sh --output sayHelloWorld.sh", 
-                                            "chmod +x sayHelloWorld.sh", 
-                                            "./sayHelloWorld.sh"
+                                            "cd /home/opc", 
+                                            "curl https://github.com/DSPN/oracle-compute-cloud-dse/raw/master/extensions/opsCenter.sh --output opsCenter.sh", 
+                                            "chmod +x opsCenter.sh", 
+                                            "./opsCenter.sh"
                                         ]
                                     }
                                 }
                             }, 
                             "storage_attachments": [
                                 {
-                                    "volume": "/Compute-usoracle19809/gilbert.lau@datastax.com/us1.boot_vol.0", 
+                                    "volume": "/Compute-usoracle19809/gilbert.lau@datastax.com/opscenter.boot_vol", 
                                     "index": 1
                                 }, 
                                 {
-                                    "volume": "/Compute-usoracle19809/gilbert.lau@datastax.com/us1.app_data_vol.0", 
+                                    "volume": "/Compute-usoracle19809/gilbert.lau@datastax.com/opscenter.app_data_vol", 
                                     "index": 2
                                 }
                             ], 
                             "sshkeys": [
                                 "/Compute-usoracle19809/gilbert.lau@datastax.com/ocp_key_gml"
                             ], 
-                            "label": "dse.host.us1.0"
+                            "label": "dse.host.opscenter"
                         }
                     ]
                 }
