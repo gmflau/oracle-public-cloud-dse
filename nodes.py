@@ -43,7 +43,8 @@ def generateInstanceNode(ocp_user, location, sshKey, vmType, securityList, hostn
                             "chmod +x node.sh",
                             "./node.sh occ " + seed_node_ip_addr + " " + location + " " +  opscenter_ip_addr
                         ]
-                    }
+                    },
+                    "packages": ["git", "wget"]
                 }
             },
             "networking": {
@@ -83,7 +84,8 @@ def generateInstanceOpsCenter(ocp_user, sshKey, vmType, securityList, hostname, 
                             "chmod +x opsCenter.sh",
                             "./opsCenter.sh occ " + seed_node_ip_addr
                         ]
-                    }
+                    },
+                    "packages": ["git", "wget"]
                 }
             },
             "networking": {
