@@ -39,7 +39,7 @@ def generateInstanceNode(ocp_user, sshKey, vmType, securityList, hostname, boot_
                         "failonerror": "false",
                         "script": [
                             "cd /home/opc",
-                            "curl https://github.com/DSPN/oracle-compute-cloud-dse/raw/master/extensions/node.sh --output node.sh",
+                            "curl https://raw.githubusercontent.com/DSPN/oracle-compute-cloud-dse/master/extensions/node.sh --output node.sh",
                             "chmod +x node.sh",
                             "./node.sh"
                         ]

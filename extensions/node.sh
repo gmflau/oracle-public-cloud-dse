@@ -23,7 +23,7 @@ echo "Calling dse.sh with the settings:"
 #echo data_center_name $data_center_name
 #echo opscenter_dns_name $opscenter_dns_name
 
-wget https://github.com/DSPN/install-datastax-redhat/archive/0.1.zip
+curl -o 0.1.zip https://codeload.github.com/DSPN/install-datastax-redhat/zip/0.1
 yum -y install unzip
 unzip 0.1.zip
 cd install-datastax-redhat-0.1/bin

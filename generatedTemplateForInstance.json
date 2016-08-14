@@ -26,7 +26,7 @@
                                         "failonerror": "false", 
                                         "script": [
                                             "cd /home/opc", 
-                                            "curl https://github.com/DSPN/oracle-compute-cloud-dse/raw/master/extensions/node.sh --output node.sh", 
+                                            "curl https://raw.githubusercontent.com/DSPN/oracle-compute-cloud-dse/master/extensions/node.sh --output node.sh", 
                                             "chmod +x node.sh", 
                                             "./node.sh"
                                         ]
@@ -68,7 +68,7 @@
                                         "failonerror": "false", 
                                         "script": [
                                             "cd /home/opc", 
-                                            "curl https://github.com/DSPN/oracle-compute-cloud-dse/raw/master/extensions/opsCenter.sh --output opsCenter.sh", 
+                                            "curl https://raw.githubusercontent.com/DSPN/oracle-compute-cloud-dse/master/extensions/opsCenter.sh --output opsCenter.sh", 
                                             "chmod +x opsCenter.sh", 
                                             "./opsCenter.sh"
                                         ]
