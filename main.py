@@ -196,7 +196,7 @@ for location, storage_vols in storage_pool.items():
         index = 0
         for storage_disks in storage_vols:
             hostname = "dse.host." + location + "." + str(index)
-            resources = nodes.generateInstanceNode(OCP_USER, sshKey, vmType, securityList, hostname,
+            resources = nodes.generateInstanceNode(OCP_USER, location, sshKey, vmType, securityList, hostname,
                                                    storage_disks[0], storage_disks[1], ip_pool.pop(),
                                                    seed_node_ip_addr, opscenter_node_ip_addr)
             generatedTemplateForInstance['oplans'][0]['objects'][0]['instances'].append(resources)

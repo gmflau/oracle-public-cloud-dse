@@ -27,7 +27,7 @@ def generateStorageVols(ocp_user, osImage, boot_vol_name, app_data_vol_name, boo
     return resource
 
 
-def generateInstanceNode(ocp_user, sshKey, vmType, securityList, hostname, boot_disk, app_data_disk, ip_label, seed_node_ip_addr, opscenter_ip_addr):
+def generateInstanceNode(ocp_user, location, sshKey, vmType, securityList, hostname, boot_disk, app_data_disk, ip_label, seed_node_ip_addr, opscenter_ip_addr):
     resource = {
             "shape": vmType,
             "boot_order": [1],
@@ -41,7 +41,7 @@ def generateInstanceNode(ocp_user, sshKey, vmType, securityList, hostname, boot_
                             "cd /home/opc",
                             "curl https://raw.githubusercontent.com/DSPN/oracle-compute-cloud-dse/master/extensions/node.sh --output node.sh",
                             "chmod +x node.sh",
-                            "./node.sh occ " + seed_node_ip_addr + " us2 " +  opscenter_ip_addr
+                            "./node.sh occ " + seed_node_ip_addr + " " + location + " " +  opscenter_ip_addr
                         ]
                     }
                 }
