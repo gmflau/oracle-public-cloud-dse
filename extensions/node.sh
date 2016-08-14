@@ -12,7 +12,7 @@ echo cloud_type $cloud_type >> node.sh.out
 echo seed_node_ip_addr $seed_node_ip_addr >> node.sh.out
 echo opscenter_ip_addr $opscenter_ip_addr >> node.sh.out
 
-curl -o 0.1.zip https://codeload.github.com/DSPN/install-datastax-redhat/zip/0.1.1
+curl -o 0.1.1.zip https://codeload.github.com/DSPN/install-datastax-redhat/zip/0.1.1
 yum -y install unzip
 unzip 0.1.1.zip
 cd install-datastax-redhat-0.1.1/bin
