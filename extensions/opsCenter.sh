@@ -14,4 +14,4 @@ cd install-datastax-redhat-0.1/bin
 
 ./reach_install_dse.sh
 
-#./opscenter.sh $cloud_type $seed_node_ip_addr
+./opscenter.sh $cloud_type $seed_node_ip_addr
