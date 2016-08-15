@@ -10,7 +10,7 @@
   "bootDriveSizeInBytes" : "10737418240",
   "appDataDriveSizeInBytes" : "42949672960",
   "networkPrefix" : "DSE_IP_",
-  "sshKey": "ocp_key_gml",
+  "sshKey": "dse_ocp_key",
   "securityList": "DSE_Seclist",
   "securityRules": "DSE_Rules"
 }
