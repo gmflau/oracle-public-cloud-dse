@@ -17,7 +17,5 @@ yum -y install unzip
 unzip 0.1.1.zip
 cd install-datastax-redhat-0.1.1/bin
 
-./reach_install_dse.sh
-
 ./dse.sh $cloud_type $seed_node_ip_addr $location $opscenter_ip_addr
 
