@@ -5,7 +5,7 @@ sshkey=$1
 pwdFilePath=$2
 
 # Add public ssh-key to your Oracle Cloud environment
-oracle-compute add sshkey $OPC_USER/dse_ocp_key $sshkey -p pwdFile
+oracle-compute add sshkey $OPC_USER/dse_ocp_key $sshkey -p $pwdFilePath
 
 # Building DataStax Cassandra cluster and OpsCenter
 python preprocess
