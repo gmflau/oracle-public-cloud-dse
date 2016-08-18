@@ -180,7 +180,7 @@ with open('generatedTemplateForStorage.json', 'w') as outputFile:
 
 
 # Provision cloud vm instances for OpsCenter and the DataStax Cassandra cluster
-hostname = "dse.host.opscenter"
+hostname = "dse.ent.host.opscenter"
 opscenter_ip_label = ip_pool.pop()
 opscenter_node_ip_addr = ip_address_list[opscenter_ip_label]
 # Pick the first IP in ip_pool as the Cassandra seed node IP
@@ -195,7 +195,7 @@ for location, storage_vols in storage_pool.items():
     if location != 'opscenter':
         index = 0
         for storage_disks in storage_vols:
-            hostname = "dse.host." + location + "." + str(index)
+            hostname = "dse.ent.host." + location + "." + str(index)
             resources = nodes.generateInstanceNode(OCP_USER, location, sshKey, vmType, securityList, hostname,
                                                    storage_disks[0], storage_disks[1], ip_pool.pop(),
                                                    seed_node_ip_addr, opscenter_node_ip_addr)
