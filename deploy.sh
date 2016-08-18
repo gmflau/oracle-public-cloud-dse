@@ -23,3 +23,5 @@ oracle-compute add orchestration generatedTemplateForMaster.json -f json -p $pwd
 oracle-compute start orchestration $OPC_USER/DataStax_Security_Lists_Plan -p $pwdFilePath
 oracle-compute start orchestration $OPC_USER/DataStax_Security_Rules_Plan -p $pwdFilePath
 oracle-compute start orchestration $OPC_USER/DataStax_Master_Plan -p $pwdFilePath
+
+
