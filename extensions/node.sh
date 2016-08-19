@@ -12,6 +12,7 @@ echo cloud_type $cloud_type >> node.sh.out
 echo seed_node_ip_addr $seed_node_ip_addr >> node.sh.out
 echo opscenter_ip_addr $opscenter_ip_addr >> node.sh.out
 
+# Will point to a specific release
 curl -o master.zip https://codeload.github.com/DSPN/install-datastax-redhat/zip/master
 yum -y install unzip
 unzip master.zip

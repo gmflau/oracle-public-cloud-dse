@@ -7,6 +7,7 @@ echo "Input to opscenter.sh is:"
 echo cloud_type $cloud_type >> opsCenter.sh.out
 echo seed_node_ip $seed_node_ip_addr >> opsCenter.sh.out
 
+# Will point to a specific release
 curl -o master.zip https://codeload.github.com/DSPN/install-datastax-redhat/zip/master
 yum -y install unzip
 unzip master.zip
