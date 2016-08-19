@@ -16,6 +16,7 @@ locations = clusterParameters['locations']
 vmType = clusterParameters['vmType']
 nodeCount = clusterParameters['nodeCount']
 OCP_USER = clusterParameters['OCP_USER']
+OPC_DOMAIN = clusterParameters['OPC_DOMAIN']
 networkPrefix = clusterParameters['networkPrefix']
 osImage = clusterParameters['osImage']
 securityList = clusterParameters['securityList']
@@ -185,7 +186,7 @@ opscenter_ip_label = ip_pool.pop()
 opscenter_node_ip_addr = ip_address_list[opscenter_ip_label]
 # Pick the first IP in ip_pool as the Cassandra seed node IP
 seed_node_ip_addr = ip_address_list[ip_pool[0]]
-resources = nodes.generateInstanceOpsCenter(OCP_USER, sshKey, vmType, securityList, hostname,
+resources = nodes.generateInstanceOpsCenter(OPC_DOMAIN, OCP_USER, sshKey, vmType, securityList, hostname,
                                             storage_pool['opscenter'][0][0], storage_pool['opscenter'][0][1],
                                             opscenter_ip_label, seed_node_ip_addr)
 generatedTemplateForInstance['oplans'][0]['objects'][0]['instances'].append(resources)
@@ -196,7 +197,7 @@ for location, storage_vols in storage_pool.items():
         index = 0
         for storage_disks in storage_vols:
             hostname = "dse.ent.host." + location + "." + str(index)
-            resources = nodes.generateInstanceNode(OCP_USER, location, sshKey, vmType, securityList, hostname,
+            resources = nodes.generateInstanceNode(OPC_DOMAIN, OCP_USER, location, sshKey, vmType, securityList, hostname,
                                                    storage_disks[0], storage_disks[1], ip_pool.pop(),
                                                    seed_node_ip_addr, opscenter_node_ip_addr)
             generatedTemplateForInstance['oplans'][0]['objects'][0]['instances'].append(resources)

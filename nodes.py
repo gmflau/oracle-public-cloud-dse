@@ -27,7 +27,7 @@ def generateStorageVols(ocp_user, osImage, boot_vol_name, app_data_vol_name, boo
     return resource
 
 
-def generateInstanceNode(ocp_user, location, sshKey, vmType, securityList, hostname, boot_disk, app_data_disk, ip_label, seed_node_ip_addr, opscenter_ip_addr):
+def generateInstanceNode(opc_domain, ocp_user, location, sshKey, vmType, securityList, hostname, boot_disk, app_data_disk, ip_label, seed_node_ip_addr, opscenter_ip_addr):
     resource = {
             "shape": vmType,
             "boot_order": [1],
@@ -49,7 +49,7 @@ def generateInstanceNode(ocp_user, location, sshKey, vmType, securityList, hostn
             },
             "networking": {
                 "eth0": {
-                    "seclists": ["/Compute-usoracle19809/default/default"],
+                    "seclists": [ opc_domain + "/default/default" ],
                     "nat": "ipreservation:" + ip_label
                 }
             },
@@ -68,7 +68,7 @@ def generateInstanceNode(ocp_user, location, sshKey, vmType, securityList, hostn
     return resource
 
 
-def generateInstanceOpsCenter(ocp_user, sshKey, vmType, securityList, hostname, boot_disk, app_data_disk, ip_label, seed_node_ip_addr):
+def generateInstanceOpsCenter(opc_domain, ocp_user, sshKey, vmType, securityList, hostname, boot_disk, app_data_disk, ip_label, seed_node_ip_addr):
     resource = {
             "shape": vmType,
             "boot_order": [1],
@@ -90,7 +90,7 @@ def generateInstanceOpsCenter(ocp_user, sshKey, vmType, securityList, hostname, 
             },
             "networking": {
                 "eth0": {
-                    "seclists": ["/Compute-usoracle19809/default/default"],
+                    "seclists": [ opc_domain + "/default/default" ],
                     "nat": "ipreservation:" + ip_label
                 }
             },
