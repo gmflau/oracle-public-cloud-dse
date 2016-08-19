@@ -3,7 +3,7 @@ Scripts for deploying to Oracle Public Cloud (OPC)
 
 These don't work yet, sorry.
 
-These scripts will use the Oracle Public Cloud (OPC) CLI to deploy: https://docs.oracle.com/cloud-machine/latest/stcomputecs/ELUCL/GUID-A377A4D6-8A3E-43EF-B069-5C4EA50D7E6D.htm#ELACI115
+These scripts will use the Oracle Public Cloud (OPC) CLI to deploy a DataStax DSE Cassandra in your OPC environment: https://docs.oracle.com/cloud-machine/latest/stcomputecs/ELUCL/GUID-A377A4D6-8A3E-43EF-B069-5C4EA50D7E6D.htm#ELACI115
 
  The [DataStax Enterprise Deployment Guide for Oracle Public Cloud] (http://www.datastax.com) is a good place to learn how to use these assets to provision a DataStax Enterprise cluster in your Oracle Public Cloud environment.
 
