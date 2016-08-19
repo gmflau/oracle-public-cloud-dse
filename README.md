@@ -10,5 +10,5 @@ These scripts will use the Oracle Public Cloud (OPC) [CLI](https://docs.oracle.c
 Directory | Description
 --- | ---
 [extensions](./extensions) | Common scripts that are used by OPC instance's bootstrapping process. In OPC terminology, this process is referred as "Automating Instance Configuration Using opc-init".  You can learn more about this [here](http://docs.oracle.com/cloud/latest/stcomputecs/STCSG/GUID-C63680F1-1D97-4984-AB02-285B17278CC5.htm#STCSG-GUID-C63680F1-1D97-4984-AB02-285B17278CC5).
-[root] (.) | Python and bash scripts to generate OPC CLI compliant json templates to stand up a DataStax Enterprise cluster in an OPC environment.
+[root] (https://github.com/DSPN/oracle-compute-cloud-dse/tree/master/) | Python and bash scripts to generate OPC CLI compliant json templates to stand up a DataStax Enterprise cluster in an OPC environment.
 
