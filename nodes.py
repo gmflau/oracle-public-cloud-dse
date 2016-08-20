@@ -41,10 +41,14 @@ def generateInstanceNode(opc_domain, ocp_user, location, sshKey, vmType, securit
                             "cd /home/opc",
                             "curl https://raw.githubusercontent.com/DSPN/oracle-compute-cloud-dse/master/extensions/node.sh --output node.sh",
                             "chmod +x node.sh",
+                            "mkfs -t ext3 /dev/xvdc",
+                            "mkdir /mnt/data1",
+                            "mount /dev/xvdc /mnt/data1",
+                            "echo '/dev/xvdc\t\t/mnt/data1\t\text3\tdefault\t\t0 0' | tee -a /etc/fstab",
                             "./node.sh occ " + seed_node_ip_addr + " " + location + " " +  opscenter_ip_addr
                         ]
                     },
-                    "packages": ["git", "wget"]
+                    "packages": ["wget"]
                 }
             },
             "networking": {
@@ -82,10 +86,14 @@ def generateInstanceOpsCenter(opc_domain, ocp_user, sshKey, vmType, securityList
                             "cd /home/opc",
                             "curl https://raw.githubusercontent.com/DSPN/oracle-compute-cloud-dse/master/extensions/opsCenter.sh --output opsCenter.sh",
                             "chmod +x opsCenter.sh",
+                            "mkfs -t ext3 /dev/xvdc",
+                            "mkdir /mnt/data1",
+                            "mount /dev/xvdc /mnt/data1",
+                            "echo '/dev/xvdc\t\t/mnt/data1\t\text3\tdefault\t\t0 0' | tee -a /etc/fstab",
                             "./opsCenter.sh occ " + seed_node_ip_addr
                         ]
                     },
-                    "packages": ["git", "wget"]
+                    "packages": ["wget"]
                 }
             },
             "networking": {
