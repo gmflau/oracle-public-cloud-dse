@@ -1,5 +1,5 @@
-# oracle-compute-dse [Work In Progress]
-Scripts for deploying to Oracle Public Cloud (OPC)
+# oracle-public-cloud-dse [Work In Progress]
+Scripts for deploying DataStax Enterprise (DSE) to Oracle Public Cloud (OPC)
 
 These don't work yet, sorry.
 
