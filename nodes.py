@@ -39,7 +39,7 @@ def generateInstanceNode(opc_domain, ocp_user, location, sshKey, vmType, securit
                         "failonerror": "false",
                         "script": [
                             "cd /home/opc",
-                            "curl https://raw.githubusercontent.com/DSPN/oracle-compute-cloud-dse/master/extensions/node.sh --output node.sh",
+                            "curl https://raw.githubusercontent.com/DSPN/oracle-public-cloud-dse/master/extensions/node.sh --output node.sh",
                             "chmod +x node.sh",
                             "mkfs -t ext3 /dev/xvdc",
                             "mkdir /mnt/data1",
@@ -84,7 +84,7 @@ def generateInstanceOpsCenter(opc_domain, ocp_user, sshKey, vmType, securityList
                         "failonerror": "false",
                         "script": [
                             "cd /home/opc",
-                            "curl https://raw.githubusercontent.com/DSPN/oracle-compute-cloud-dse/master/extensions/opsCenter.sh --output opsCenter.sh",
+                            "curl https://raw.githubusercontent.com/DSPN/oracle-public-cloud-dse/master/extensions/opsCenter.sh --output opsCenter.sh",
                             "chmod +x opsCenter.sh",
                             "mkfs -t ext3 /dev/xvdc",
                             "mkdir /mnt/data1",
