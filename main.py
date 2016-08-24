@@ -15,7 +15,7 @@ with open('clusterParameters.json') as inputFile:
 locations = clusterParameters['locations']
 vmType = clusterParameters['vmType']
 nodeCount = clusterParameters['nodeCount']
-OCP_USER = clusterParameters['OCP_USER']
+OPC_USER = clusterParameters['OPC_USER']
 OPC_DOMAIN = clusterParameters['OPC_DOMAIN']
 networkPrefix = clusterParameters['networkPrefix']
 osImage = clusterParameters['osImage']
@@ -36,7 +36,7 @@ with open('ipListWithoutHeader.txt', 'r') as inputFile:
 # We will use "dse_secList" as the security list
 generatedTemplateForSecurityList = {
   "description": "Plan to create security list",
-  "name": OCP_USER + "/DataStax_Security_Lists_Plan",
+  "name": OPC_USER + "/DataStax_Security_Lists_Plan",
   "oplans": [
     {
       "label": "admin-seclists",
@@ -44,7 +44,7 @@ generatedTemplateForSecurityList = {
 
       "objects": [
         {
-          "name": OCP_USER + "/" + securityList
+          "name": OPC_USER + "/" + securityList
         }
       ]
     }
@@ -54,17 +54,17 @@ generatedTemplateForSecurityList = {
 # We will use "DSE_Rules" as the security Rules
 generatedTemplateForSecurityRules = {
   "description": "Plan to create security rules",
-  "name": OCP_USER + "/DataStax_Security_Rules_Plan",
+  "name": OPC_USER + "/DataStax_Security_Rules_Plan",
   "oplans": [
     {
       "label": "DSE_Security_Rules",
       "obj_type": "secrule",
       "objects": [
         {
-          "name": OCP_USER + "/" + securityRules,
+          "name": OPC_USER + "/" + securityRules,
           "application": "/oracle/public/all",
           "src_list": "seciplist:/oracle/public/public-internet",
-          "dst_list": "seclist:" + OCP_USER + "/DSE_Seclist",
+          "dst_list": "seclist:" + OPC_USER + "/DSE_Seclist",
           "action": "PERMIT"
         }
       ]
@@ -74,7 +74,7 @@ generatedTemplateForSecurityRules = {
 
 generatedTemplateForIPs = {
     "description": "Plan to create static IP addresses for DataStax node",
-    "name": OCP_USER + "/DataStax_IP_Reservation_Plan",
+    "name": OPC_USER + "/DataStax_IP_Reservation_Plan",
     "oplans": [
         {
             "label": "DSE IP Reservation",
@@ -87,7 +87,7 @@ generatedTemplateForIPs = {
 
 generatedTemplateForStorage = {
     "description": "Plan to create storage volumnes for DataStax node",
-    "name": OCP_USER + "/DataStax_Storage_Plan",
+    "name": OPC_USER + "/DataStax_Storage_Plan",
     "oplans": [
         {
             "label": "DSE storage volumes",
@@ -102,7 +102,7 @@ generatedTemplateForStorage = {
 # This is the skeleton of the template that we're going to add resources to
 generatedTemplateForInstance = {
     "description": "Plan to deploy OCC instance for DataStax node",
-    "name": OCP_USER + "/DataStax_Instance_Plan",
+    "name": OPC_USER + "/DataStax_Instance_Plan",
     "oplans": [
         {
             "obj_type": "launchplan",
@@ -117,7 +117,7 @@ generatedTemplateForInstance = {
 
 generatedTemplateForMaster = {
     "description": "Master plan to spin up a DataStax node",
-    "name": OCP_USER + "/DataStax_Master_Plan",
+    "name": OPC_USER + "/DataStax_Master_Plan",
     "relationships": [
         {
             "to_oplan": "DataStax_Storage_Plan",
@@ -131,7 +131,7 @@ generatedTemplateForMaster = {
             "obj_type": "orchestration",
             "objects": [
                 {
-                    "name": OCP_USER + "/DataStax_Storage_Plan"
+                    "name": OPC_USER + "/DataStax_Storage_Plan"
                 }
             ]
         },
@@ -140,7 +140,7 @@ generatedTemplateForMaster = {
             "obj_type": "orchestration",
             "objects": [
                 {
-                    "name": OCP_USER + "/DataStax_Instance_Plan"
+                    "name": OPC_USER + "/DataStax_Instance_Plan"
                 }
             ]
         }
@@ -161,7 +161,7 @@ for location, api_endpoint in locations.items():
     for nodeCounter in range(0, nodeCount):
         boot_vol_name = location + ".boot_vol." + str(nodeCounter)
         app_data_vol_name = location + ".app_data_vol." + str(nodeCounter)
-        resources = nodes.generateStorageVols(OCP_USER, osImage, boot_vol_name, app_data_vol_name,
+        resources = nodes.generateStorageVols(OPC_USER, osImage, boot_vol_name, app_data_vol_name,
                                             bootDriveSizeInBytes, appDataDriveSizeInBytes)
         storage_pool[location] = storage_pool.get(location, []) + [[boot_vol_name, app_data_vol_name]]
         generatedTemplateForStorage['oplans'][0]['objects'].append(resources[0])
@@ -170,7 +170,7 @@ for location, api_endpoint in locations.items():
 # Provision OpsCenter storage volumes
 boot_vol_name = "opscenter.boot_vol"
 app_data_vol_name = "opscenter.app_data_vol"
-resources = nodes.generateStorageVols(OCP_USER, osImage, boot_vol_name, app_data_vol_name,
+resources = nodes.generateStorageVols(OPC_USER, osImage, boot_vol_name, app_data_vol_name,
                                       bootDriveSizeInBytes, appDataDriveSizeInBytes)
 storage_pool['opscenter'] = [[boot_vol_name, app_data_vol_name]]
 generatedTemplateForStorage['oplans'][0]['objects'].append(resources[0])
@@ -186,7 +186,7 @@ opscenter_ip_label = ip_pool.pop()
 opscenter_node_ip_addr = ip_address_list[opscenter_ip_label]
 # Pick the first IP in ip_pool as the Cassandra seed node IP
 seed_node_ip_addr = ip_address_list[ip_pool[0]]
-resources = nodes.generateInstanceOpsCenter(OPC_DOMAIN, OCP_USER, sshKey, vmType, securityList, hostname,
+resources = nodes.generateInstanceOpsCenter(OPC_DOMAIN, OPC_USER, sshKey, vmType, securityList, hostname,
                                             storage_pool['opscenter'][0][0], storage_pool['opscenter'][0][1],
                                             opscenter_ip_label, seed_node_ip_addr)
 generatedTemplateForInstance['oplans'][0]['objects'][0]['instances'].append(resources)
@@ -197,7 +197,7 @@ for location, storage_vols in storage_pool.items():
         index = 0
         for storage_disks in storage_vols:
             hostname = "dse.ent.host." + location + "." + str(index)
-            resources = nodes.generateInstanceNode(OPC_DOMAIN, OCP_USER, location, sshKey, vmType, securityList, hostname,
+            resources = nodes.generateInstanceNode(OPC_DOMAIN, OPC_USER, location, sshKey, vmType, securityList, hostname,
                                                    storage_disks[0], storage_disks[1], ip_pool.pop(),
                                                    seed_node_ip_addr, opscenter_node_ip_addr)
             generatedTemplateForInstance['oplans'][0]['objects'][0]['instances'].append(resources)

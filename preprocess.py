@@ -8,7 +8,7 @@ with open('clusterParameters.json') as inputFile:
 
 locations = clusterParameters['locations']
 nodeCount = clusterParameters['nodeCount']
-OCP_USER = clusterParameters['OCP_USER']
+OCP_USER = clusterParameters['OPC_USER']
 networkPrefix = clusterParameters['networkPrefix']
 
 generatedTemplateForIPs = {
