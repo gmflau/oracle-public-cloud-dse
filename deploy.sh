@@ -13,7 +13,7 @@ oracle-compute add sshkey $OPC_USER/dse_ocp_key $sshkey -p $pwdFilePath
 # Building DataStax Cassandra cluster and OpsCenter
 
 # Generate the IP reservation addresses for the DSE Cassandra cluster nodes
-python preprocess
+python preprocess.py
 oracle-compute add orchestration generatedTemplateForIPs.json -f json -p $pwdFilePath
 oracle-compute start orchestration $OPC_USER/DataStax_IP_Reservation_Plan -p $pwdFilePath
 oracle-compute list ipreservation $OPC_USER -p $pwdFilePath -F name,ip > ipListWithHeader.txt
