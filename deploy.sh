@@ -1,14 +1,17 @@
 #!/bin/bash
 
-# Retrieve the public ssh-key's full filename
-sshkey=$1
+# Retrieve ssh public key name
+sshKeyName=$1
+
+# Retrieve ssh public key's fullpath name
+sshKeyFilePath=$2
 
 # Retrieve the full path of a file storing your Oracle CLI's password
 # Make sure you do a "chmod 600" on it
-pwdFilePath=$2
+pwdFilePath=$3
 
 # Add public ssh-key to your Oracle Cloud environment
-oracle-compute add sshkey $OPC_USER/dse_ocp_key $sshkey -p $pwdFilePath
+oracle-compute add sshkey $OPC_USER/$sshKeyName $sshKeyFilePath -p $pwdFilePath
 sleep 10
 
 # Building DataStax Cassandra cluster and OpsCenter
