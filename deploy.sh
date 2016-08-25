@@ -9,14 +9,18 @@ pwdFilePath=$2
 
 # Add public ssh-key to your Oracle Cloud environment
 oracle-compute add sshkey $OPC_USER/dse_ocp_key $sshkey -p $pwdFilePath
+sleep 10
 
 # Building DataStax Cassandra cluster and OpsCenter
 
 # Generate the IP reservation addresses for the DSE Cassandra cluster nodes
 python preprocess.py
 oracle-compute add orchestration generatedTemplateForIPs.json -f json -p $pwdFilePath
+sleep 10
 oracle-compute start orchestration $OPC_USER/DataStax_IP_Reservation_Plan -p $pwdFilePath
+sleep 15
 oracle-compute list ipreservation $OPC_USER -p $pwdFilePath -F name,ip > ipListWithHeader.txt
+sleep 10
 sed -e '1,1d' < ipListWithHeader.txt > ipListWithoutHeader.txt
 
 # Generate storage, compute and master plan OPC CLI orchestration templates
@@ -38,6 +42,7 @@ oracle-compute add orchestration generatedTemplateForMaster.json -f json -p $pwd
 #oracle-compute start orchestration $OPC_USER/DataStax_Security_Rules_Plan -p $pwdFilePath
 
 # Executing through the Master_Plan orchestration: invoke both storage and compute instance orchestrations in sequence
+sleep 10
 oracle-compute start orchestration $OPC_USER/DataStax_Master_Plan -p $pwdFilePath
 
 
