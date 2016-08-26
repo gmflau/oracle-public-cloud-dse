@@ -51,8 +51,7 @@ In that directory is a file called 'clusterParameters.json' that looks like the 
 ```json
  {
    "locations": { 
-    "Oracle_Public_Cloud_DC_us1": "https://api-z27.compute.us6.oraclecloud.com/",
-    "Oracle_Public_Cloud_DC_us2": "https://api-z26.compute.us6.oraclecloud.com/"
+    "Oracle_Public_Cloud_DC_us1": "https://api-z27.compute.us6.oraclecloud.com/"
   },
   "OPC_DOMAIN" : "/Compute-usoracle19809",
   "OPC_USER" : "/Compute-usoracle19809/gilbert.lau@datastax.com",
@@ -72,7 +71,7 @@ In the clusterParameters.json template, you will need to edit the following:
 
 * "us1" is a label to decribe your Oracle data center.  You can change it to any name best describes your data center location.
 * "https://api-z27.compute.us6.oraclecloud.com/" is the API endpoint of your specific OPC data center which is the same value of your OPC_API environment variable. Again, this [link](http://docs.oracle.com/cloud/latest/stcomputecs/STCSA/SendRequests.html) shows you how to find your API endpoint information.  Replace it with your own value.
-* "locations" element is a list.  This means you can specify as many data centers as required for your deployment.
+* "locations" element is a list.  This means you can specify as many data centers as required for your deployment.  Our current release will support a single data center entry only.
 * OPC_DOMAIN is your OPC's Compute-identity domain.
 * OPC_USER is of the same value of your OPC_USER environment variable.
 * nodeCount is the number of Cassandra cluster nodes you want to deploy in each data center you specify above.
