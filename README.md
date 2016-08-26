@@ -4,7 +4,7 @@ Scripts for deploying DataStax Enterprise (DSE) to Oracle Public Cloud (OPC)
 
 These scripts use the Oracle Public Cloud (OPC) [CLI](https://docs.oracle.com/cloud-machine/latest/stcomputecs/ELUCL/GUID-A377A4D6-8A3E-43EF-B069-5C4EA50D7E6D.htm#ELACI113) to deploy a DataStax Enterprise cluster in an OPC environment:
 
-The [DataStax Enterprise Deployment Guide for Oracle Public Cloud](http://www.datastax.com) is a good place to learn about best practices only Oracle Cloud.
+The DataStax [Oracle Cloud Deployment Guide](https://github.com/DSPN/oracle-cloud-deployment-guide) is a good place to learn about best practices for Oracle Cloud.
 
 |Directory | Description |
 |----------|-------------|
@@ -29,7 +29,7 @@ With regards to where you want your workstation to be, you have two options.  Th
         
 Once you got this virtual machine or OPC instance up and running, you can follow this [link](http://docs.oracle.com/cloud/latest/stcomputecs/STCLR/GUID-62B0B2BD-A95F-4F82-B144-8C1DBA8760E9.htm#STCLR-GUID-62B0B2BD-A95F-4F82-B144-8C1DBA8760E9) 
 to set up your Oracle Compute Cloud Service CLI and the required environment variables and files.
-        
+
 ### 3. Install DSPN assets on your workstation to provision DSE cluster in OPC
 At this point, you should have your OPC CLI environment variables namely OPC_API, OPC_USER, and a plain-text file storing your OPC account's password all setup already.  For the environment variables, I would highly recommend you to store them in your .bash_profile file if you have not done so already.
 
