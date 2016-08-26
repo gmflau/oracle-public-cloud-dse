@@ -6,10 +6,10 @@ These scripts use the Oracle Public Cloud (OPC) [CLI](https://docs.oracle.com/cl
 
 The [DataStax Enterprise Deployment Guide for Oracle Public Cloud](http://www.datastax.com) is a good place to learn about best practices only Oracle Cloud.
 
-Directory | Description
---- | ---
-[extensions](./extensions) | Common scripts that are used by OPC instance's bootstrapping process. In OPC terminology, this process is referred as "Automating Instance Configuration Using opc-init".  You can learn more about this [here](http://docs.oracle.com/cloud/latest/stcomputecs/STCSG/GUID-C63680F1-1D97-4984-AB02-285B17278CC5.htm#STCSG-GUID-C63680F1-1D97-4984-AB02-285B17278CC5).
-[root](https://github.com/DSPN/oracle-compute-cloud-dse/tree/master/) | Python and bash scripts to generate OPC CLI compliant json templates to stand up a DataStax Enterprise cluster in an OPC environment.
+|Directory | Description |
+|----------|-------------|
+|[extensions](./extensions) | Common scripts that are used by OPC instance's bootstrapping process. In OPC terminology, this process is referred as "Automating Instance Configuration Using opc-init".  You can learn more about this [here](http://docs.oracle.com/cloud/latest/stcomputecs/STCSG/GUID-C63680F1-1D97-4984-AB02-285B17278CC5.htm#STCSG-GUID-C63680F1-1D97-4984-AB02-285B17278CC5).|
+|[root](https://github.com/DSPN/oracle-compute-cloud-dse/tree/master/) | Python and bash scripts to generate OPC CLI compliant json templates to stand up a DataStax Enterprise cluster in an OPC environment.|
 
 ## Instructions
 
@@ -20,28 +20,26 @@ This document describes the required steps to deploy a DataStax Enterprise (DSE)
 3. Install our assets on your workstation to provision DSE cluster in OPC
 4. Update the clusterParameters.json to reflect your own settings
 5. Run the deploy.sh to deploy a DSE cluster in your OPC environment
-<br>
 
 #### 1. Obtain your Oracle Public Cloud account
 If you do not have an account with OPC yet, please follow this [link](https://myaccount.cloud.oracle.com/mycloud/faces/trialsignup.jspx?serviceType=IAASMB) to apply for one.
-<br>
 
 #### 2. Set up your workstation with OPC Command Line Tool
 With regards to where you want your workstation to be, you have two options.  The first option is to create a local Oracle Enterprise Linux 6.7 virtual machine on your destktop.  The second option is to create an OEL 6.7 instance in your OPC account.  
         
 Once you got this virtual machine or OPC instance up and running, you can follow this [link](http://docs.oracle.com/cloud/latest/stcomputecs/STCLR/GUID-62B0B2BD-A95F-4F82-B144-8C1DBA8760E9.htm#STCLR-GUID-62B0B2BD-A95F-4F82-B144-8C1DBA8760E9) 
 to set up your Oracle Compute Cloud Service CLI and the required environment variables and files.
-<br>
         
 #### 3. Install DSPN assets on your workstation to provision DSE cluster in OPC
 At this point, you should have your OPC CLI environment variables namely OPC_API, OPC_USER, and a plain-text file storing your OPC account's password all setup already.  For the environment variables, I would highly recommend you to store them in your .bash_profile file if you have not done so already.
 
 In your local root or user account of your workstation, please do the followings:
 
- * Follow this [link](https://docs.oracle.com/cloud/latest/stcomputecs/STCSG/GUID-EE29085A-79B1-4A3A-BF25-A2A9516EC5F3.htm#OCSUG149) to generate an SSH key pair so you can use the private key to log in to your DataStax cluster instances using SSH.
- * Go to your home directory and run "wget https<nolink>://github.com/DSPN/oracle-compute-cloud-dse/archive/master.zip"
- * Run "unzip master.zip" and a directory called "oracle-compute-cloud-dse-master" should be created.
-<br>
+Follow this [link](https://docs.oracle.com/cloud/latest/stcomputecs/STCSG/GUID-EE29085A-79B1-4A3A-BF25-A2A9516EC5F3.htm#OCSUG149) to generate an SSH key pair so you can use the private key to log in to your DataStax cluster instances using SSH.
+ 
+Clone the repo localy using the command:
+ 
+    git clone https://github.com/DSPN/oracle-public-cloud-dse.git
 
 #### 4. Update the clusterParameters.json file to reflect your OPC environment settings
  * cd into ./oracle-compute-cloud-dse-master directory, and you should find a file called clusterParameters.json looks like the following.
