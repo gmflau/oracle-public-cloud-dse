@@ -1,5 +1,4 @@
 import json
-import sys
 import nodes
 
 ip_pool = []
@@ -7,7 +6,7 @@ ip_address_list = {}
 storage_pool = {}
 
 with open('cassandra_ip_pool.txt', 'r') as inputFile:
-   ip_pool = json.load(inputFile)
+    ip_pool = json.load(inputFile)
 
 with open('clusterParameters.json') as inputFile:
     clusterParameters = json.load(inputFile)
@@ -25,51 +24,49 @@ sshKey = clusterParameters['sshKey']
 bootDriveSizeInBytes = clusterParameters['bootDriveSizeInBytes']
 appDataDriveSizeInBytes = clusterParameters['appDataDriveSizeInBytes']
 
-
 # Retrieve IP addresses from Oracle Cloud and insert them into a dictionary
 with open('ipListWithoutHeader.txt', 'r') as inputFile:
-   for line in inputFile:
-       splitLine = line.split()
-       ip_address_list[splitLine[0]] = splitLine[1]
-
+    for line in inputFile:
+        splitLine = line.split()
+        ip_address_list[splitLine[0]] = splitLine[1]
 
 # We will use "dse_secList" as the security list
 generatedTemplateForSecurityList = {
-  "description": "Plan to create security list",
-  "name": OPC_USER + "/DataStax_Security_Lists_Plan",
-  "oplans": [
-    {
-      "label": "admin-seclists",
-      "obj_type": "seclist",
-
-      "objects": [
+    "description": "Plan to create security list",
+    "name": OPC_USER + "/DataStax_Security_Lists_Plan",
+    "oplans": [
         {
-          "name": OPC_USER + "/" + securityList
+            "label": "admin-seclists",
+            "obj_type": "seclist",
+
+            "objects": [
+                {
+                    "name": OPC_USER + "/" + securityList
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }
 
 # We will use "DSE_Rules" as the security Rules
 generatedTemplateForSecurityRules = {
-  "description": "Plan to create security rules",
-  "name": OPC_USER + "/DataStax_Security_Rules_Plan",
-  "oplans": [
-    {
-      "label": "DSE_Security_Rules",
-      "obj_type": "secrule",
-      "objects": [
+    "description": "Plan to create security rules",
+    "name": OPC_USER + "/DataStax_Security_Rules_Plan",
+    "oplans": [
         {
-          "name": OPC_USER + "/" + securityRules,
-          "application": "/oracle/public/all",
-          "src_list": "seciplist:/oracle/public/public-internet",
-          "dst_list": "seclist:" + OPC_USER + "/DSE_Seclist",
-          "action": "PERMIT"
+            "label": "DSE_Security_Rules",
+            "obj_type": "secrule",
+            "objects": [
+                {
+                    "name": OPC_USER + "/" + securityRules,
+                    "application": "/oracle/public/all",
+                    "src_list": "seciplist:/oracle/public/public-internet",
+                    "dst_list": "seclist:" + OPC_USER + "/DSE_Seclist",
+                    "action": "PERMIT"
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }
 
 generatedTemplateForIPs = {
@@ -84,7 +81,6 @@ generatedTemplateForIPs = {
     ]
 }
 
-
 generatedTemplateForStorage = {
     "description": "Plan to create storage volumnes for DataStax node",
     "name": OPC_USER + "/DataStax_Storage_Plan",
@@ -97,7 +93,6 @@ generatedTemplateForStorage = {
 
     ]
 }
-
 
 # This is the skeleton of the template that we're going to add resources to
 generatedTemplateForInstance = {
@@ -113,7 +108,6 @@ generatedTemplateForInstance = {
     ]
 
 }
-
 
 generatedTemplateForMaster = {
     "description": "Master plan to spin up a DataStax node",
@@ -147,14 +141,13 @@ generatedTemplateForMaster = {
     ]
 }
 
-
 # Provision security lists
 with open('generatedTemplateForSecurityList.json', 'w') as outputFile:
-   json.dump(generatedTemplateForSecurityList, outputFile, indent=4, ensure_ascii=False)
+    json.dump(generatedTemplateForSecurityList, outputFile, indent=4, ensure_ascii=False)
 
 # Provision security rules
 with open('generatedTemplateForSecurityRules.json', 'w') as outputFile:
-   json.dump(generatedTemplateForSecurityRules, outputFile, indent=4, ensure_ascii=False)
+    json.dump(generatedTemplateForSecurityRules, outputFile, indent=4, ensure_ascii=False)
 
 # Provision storage volumes for the DataStax Cassandra cluster
 for location, api_endpoint in locations.items():
@@ -162,7 +155,7 @@ for location, api_endpoint in locations.items():
         boot_vol_name = location + ".boot_vol." + str(nodeCounter)
         app_data_vol_name = location + ".app_data_vol." + str(nodeCounter)
         resources = nodes.generateStorageVols(OPC_USER, osImage, boot_vol_name, app_data_vol_name,
-                                            bootDriveSizeInBytes, appDataDriveSizeInBytes)
+                                              bootDriveSizeInBytes, appDataDriveSizeInBytes)
         storage_pool[location] = storage_pool.get(location, []) + [[boot_vol_name, app_data_vol_name]]
         generatedTemplateForStorage['oplans'][0]['objects'].append(resources[0])
         generatedTemplateForStorage['oplans'][0]['objects'].append(resources[1])
@@ -178,7 +171,6 @@ generatedTemplateForStorage['oplans'][0]['objects'].append(resources[1])
 
 with open('generatedTemplateForStorage.json', 'w') as outputFile:
     json.dump(generatedTemplateForStorage, outputFile, indent=4, ensure_ascii=False)
-
 
 # Provision cloud vm instances for OpsCenter and the DataStax Cassandra cluster
 hostname = "dse.ent.host.opscenter"
@@ -197,7 +189,8 @@ for location, storage_vols in storage_pool.items():
         index = 0
         for storage_disks in storage_vols:
             hostname = "dse.ent.host." + location + "." + str(index)
-            resources = nodes.generateInstanceNode(OPC_DOMAIN, OPC_USER, location, sshKey, vmType, securityList, hostname,
+            resources = nodes.generateInstanceNode(OPC_DOMAIN, OPC_USER, location, sshKey, vmType, securityList,
+                                                   hostname,
                                                    storage_disks[0], storage_disks[1], ip_pool.pop(),
                                                    seed_node_ip_addr, opscenter_node_ip_addr)
             generatedTemplateForInstance['oplans'][0]['objects'][0]['instances'].append(resources)
@@ -206,11 +199,6 @@ for location, storage_vols in storage_pool.items():
 with open('generatedTemplateForInstance.json', 'w') as outputFile:
     json.dump(generatedTemplateForInstance, outputFile, indent=4, ensure_ascii=False)
 
-
 # Generate master orchestration plan to spin up the DataStax Cassandra cluster
 with open('generatedTemplateForMaster.json', 'w') as outputFile:
-   json.dump(generatedTemplateForMaster, outputFile, indent=4, ensure_ascii=False)
-
-
-
-
+    json.dump(generatedTemplateForMaster, outputFile, indent=4, ensure_ascii=False)
