@@ -1,0 +1,31 @@
+{
+    "relationships": [
+        {
+            "to_oplan": "DataStax_Storage_Plan", 
+            "oplan": "DataStax_Instance_Plan", 
+            "type": "depends"
+        }
+    ], 
+    "description": "Master plan to spin up a DataStax node", 
+    "name": "GML/DataStax_Master_Plan", 
+    "oplans": [
+        {
+            "obj_type": "orchestration", 
+            "objects": [
+                {
+                    "name": "GML/DataStax_Storage_Plan_DSE"
+                }
+            ], 
+            "label": "DataStax_Storage_Plan"
+        }, 
+        {
+            "obj_type": "orchestration", 
+            "objects": [
+                {
+                    "name": "GML/DataStax_Instance_Plan_DSE"
+                }
+            ], 
+            "label": "DataStax_Instance_Plan"
+        }
+    ]
+}

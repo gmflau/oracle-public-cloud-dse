@@ -1,0 +1,11 @@
+{
+    "description": "Plan to create storage volumnes for DataStax node", 
+    "name": "GML/DataStax_Storage_Plan_OpsCenter", 
+    "oplans": [
+        {
+            "obj_type": "storage/volume", 
+            "objects": [], 
+            "label": "DSE storage volumes"
+        }
+    ]
+}
