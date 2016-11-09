@@ -1,5 +1,6 @@
 import json
 import nodes
+import copy
 
 
 # Generate IP address OCID
@@ -38,10 +39,12 @@ generatedTemplateForIPs = {
 for counter in range(0, len(locations) * nodeCount + 1):
     networkName = OCP_USER + "/" + networkPrefix + str(counter)
     resources = nodes.generateIPs(networkName)
-    ip_pool.append(networkName)
-    generatedTemplateForIPs['oplans'][0]['objects'].append(resources)
+    ip_pool.append(networkName)  
+    genTempForIP = copy.deepcopy(generatedTemplateForIPs)
+    genTempForIP['oplans'][0]['objects'].append(resources)
+    genTempForIP['name'] = OCP_USER + "/DataStax_IP_Reservation_Plan_" + str(counter)
     with open('generatedTemplateForIP_' + str(counter) + '.json', 'w') as outputFile:
-       json.dump(generatedTemplateForIPs, outputFile, indent=4, ensure_ascii=False)
+       json.dump(genTempForIP, outputFile, indent=4, ensure_ascii=False)
 
 
 # Output list of IP address OCIDs
