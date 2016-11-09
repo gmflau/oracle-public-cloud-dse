@@ -218,7 +218,7 @@ with open('generatedTemplateForStorage_OpsCenter.json', 'w') as outputFile:
     json.dump(storageTemplate, outputFile, indent=4, ensure_ascii=False)
 
 # Generate instance orchestration plan for OpsCenter
-with open('instanceTemplate.json', 'w') as outputFile:
+with open('generatedTemplateForInstance_OpsCenter.json', 'w') as outputFile:
     json.dump(instanceTemplate, outputFile, indent=4, ensure_ascii=False)
 
 # Generate master orchestration plan to spin up the DataStax Enterprise OpsCenter
