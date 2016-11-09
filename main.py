@@ -249,9 +249,9 @@ for location, storage_vols in storage_pool.items():
 	    storageTemplate = copy.deepcopy(generatedTemplateForStorage)
 	    instanceTemplate = copy.deepcopy(generatedTemplateForInstance)
 	    masterTemplate = copy.deepcopy(generatedTemplateForMaster)
-	    storage_plan = OPC_USER + "/DataStax_Storage_Plan_OpsCenter" + str(index)
-	    instance_plan = OPC_USER + "/DataStax_Instance_Plan_OpsCenter" + str(index)
-	    master_plan = OPC_USER + "/DataStax_Master_Plan_OpsCenter" + str(index)
+	    storage_plan = OPC_USER + "/DataStax_Storage_Plan_DSE_" + str(index)
+	    instance_plan = OPC_USER + "/DataStax_Instance_Plan_DSE_" + str(index)
+	    master_plan = OPC_USER + "/DataStax_Master_Plan_DSE_" + str(index)
 
             ## Generate a hostname
 	    hostname = "dse.ent.host." + location + "." + str(index)
