@@ -224,8 +224,8 @@ with open('instanceTemplate.json', 'w') as outputFile:
 # Generate master orchestration plan to spin up the DataStax Enterprise OpsCenter
 masterTemplate = copy.deepcopy(generatedTemplateForMaster)
 masterTemplate['name'] = ops_center_master_plan
-masterTemplate['oplans'][0]['objects']['name'] = ops_center_storage_plan
-masterTemplate['oplans'][1]['objects']['name'] = ops_center_instance_plan
+masterTemplate['oplans'][0]['objects'][0]['name'] = ops_center_storage_plan
+masterTemplate['oplans'][1]['objects'][0]['name'] = ops_center_instance_plan
 with open('generatedTemplateForMaster_OpsCenter.json', 'w') as outputFile:
     json.dump(masterTemplate, outputFile, indent=4, ensure_ascii=False)
 
@@ -257,6 +257,9 @@ for location, storage_vols in storage_pool.items():
 	    hostname = "dse.ent.host." + location + "." + str(index)
 
 	    ## Create storage orchestration template
+            boot_vol_name = storage_disks[0]
+            app_data_vol_name = storage_disks[1]
+	
             resources = nodes.generateStorageVols(OPC_USER, osImage, boot_vol_name, app_data_vol_name,
                                               bootDriveSizeInBytes, appDataDriveSizeInBytes)    
 	    storageTemplate['oplans'][0]['objects'].append(resources[0])
@@ -283,8 +286,8 @@ for location, storage_vols in storage_pool.items():
 
 	    ## Create master orchestration template
 	    masterTemplate['name'] = master_plan
-	    masterTemplate['oplans'][0]['objects']['name'] = storage_plan
-	    masterTemplate['oplans'][1]['objects']['name'] = instance_plan
+	    masterTemplate['oplans'][0]['objects'][0]['name'] = storage_plan
+	    masterTemplate['oplans'][1]['objects'][0]['name'] = instance_plan
 
             # Generate master orchestration plan
 	    with open('generatedTemplateForMaster_DSE_' + str(index) + '.json', 'w') as outputFile:
