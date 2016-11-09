@@ -52,7 +52,7 @@ def generateInstanceNode(opc_domain, ocp_user, location, sshKey, vmType, securit
         },
         "networking": {
             "eth0": {
-                "seclists": [opc_domain + "/default/default"],
+                "seclists": [ ocp_user + "/" + securityList ],
                 "nat": "ipreservation:" + ip_label
             }
         },
@@ -98,7 +98,7 @@ def generateInstanceOpsCenter(opc_domain, ocp_user, sshKey, vmType, securityList
         },
         "networking": {
             "eth0": {
-                "seclists": [opc_domain + "/default/default"],
+                "seclists": [ ocp_user + "/" + securityList ],
                 "nat": "ipreservation:" + ip_label
             }
         },
