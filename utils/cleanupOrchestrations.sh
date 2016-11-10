@@ -1,0 +1,18 @@
+#!/bin/bash
+
+pwdFilePath=$1
+
+oracle-compute discover orchestration $OPC_USER -p $pwdFilePath > orchestrations.txt
+sed -e '1,1d' < orchestrations.txt  > orchestrationsWithoutHeader.txt
+
+while read line
+do
+    oracle-compute stop orchestration $line --force
+done < orchestrationsWithoutHeader.txt
+sleep 180
+
+while read line
+do
+    oracle-compute delete orchestration $line --force
+done < orchestrationsWithoutHeader.txt
+
