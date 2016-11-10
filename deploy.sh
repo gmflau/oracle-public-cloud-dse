@@ -1,5 +1,16 @@
 #!/bin/bash
 
+
+#### Archive files generated from previous deployments
+timestamp_folder=./logs/$( date +"%Y-%m-%d-%H-%M-%S" )
+echo $timestamp
+mkdir $timestamp_folder
+mv generatedTemplateFor*.json $timestamp_folder
+mv cassandra_ip_pool.txt $timestamp_folder
+mv ipListWithHeader.txt $timestamp_folder
+mv ipListWithoutHeader.txt $timestamp_folder
+
+
 ##### Retrieve ssh public key name
 sshKeyName=$1
 
