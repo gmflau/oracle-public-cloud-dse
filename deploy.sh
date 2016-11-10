@@ -73,7 +73,7 @@ for i in generatedTemplateForMaster_*.json; do
     oracle-compute add orchestration $i -f json -p $pwdFilePath
     sleep 2
 done
-
+sleep 30
 
 oracle-compute discover orchestration $OPC_USER -p $pwdFilePath | grep Master > generatedTemplateForMasterPlanWithHeader.txt
 sed -e '1,1d' < generatedTemplateForMasterPlanWithHeader.txt  > generatedTemplateForMasterPlanWithoutHeader.txt
