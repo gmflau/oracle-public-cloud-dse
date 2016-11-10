@@ -78,15 +78,14 @@ for i in generatedTemplateForMaster_*.json; do
     oracle-compute add orchestration $i -f json -p $pwdFilePath
     sleep 2
 done
-sleep 30
+sleep 10
 
 # Executing Master orchestration templates to provision DSE nodes and DSE OpsCenter
-oracle-compute discover orchestration $OPC_USER -p $pwdFilePath | grep Master > generatedTemplateForMasterPlanWithHeader.txt
-sed -e '1,1d' < generatedTemplateForMasterPlanWithHeader.txt  > generatedTemplateForMasterPlanWithoutHeader.txt
+oracle-compute discover orchestration $OPC_USER -p $pwdFilePath | grep Master > generatedTemplateForMasterPlans.txt
 while read line
 do
     oracle-compute start orchestration $line -p $pwdFilePath
     sleep 5
-done < generatedTemplateForMasterPlanWithoutHeader.txt
+done < generatedTemplateForMasterPlans.txt
 
 
