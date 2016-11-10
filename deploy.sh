@@ -42,32 +42,37 @@ for i in generatedTemplateForIP_*.json; do
     let COUNTER=COUNTER+1
     sleep 5
 done
-
 sleep 5
+
 oracle-compute list ipreservation $OPC_USER -p $pwdFilePath -F name,ip > ipListWithHeader.txt
 sed -e '1,1d' < ipListWithHeader.txt > ipListWithoutHeader.txt
 
 
-# Generate storage, compute and master plan OPC CLI orchestration templates
+#### Generate storage, compute and master plan OPC CLI orchestration templates
 python main.py
+
+#### Building DSE specific security lists for DSE nodes and associated security rules
 oracle-compute add orchestration generatedTemplateForSecurityList.json -f json -p $pwdFilePath
 oracle-compute add orchestration generatedTemplateForSecurityRules.json -f json -p $pwdFilePath
 oracle-compute start orchestration $OPC_USER/DataStax_Security_Lists_Plan -p $pwdFilePath
 oracle-compute start orchestration $OPC_USER/DataStax_Security_Rules_Plan -p $pwdFilePath
 
-# Adding the templates to your OPC CLI environment and executing through the Master_Plan orchestration
+#### Adding the orchestration templates and executing them through the Master_Plan orchestrations
+# Adding Storage specific orchestration templates
 for i in generatedTemplateForStorage_*.json; do
     echo $i
     oracle-compute add orchestration $i -f json -p $pwdFilePath
     sleep 2
 done
 
+# Adding Instance specific orchestration templates
 for i in generatedTemplateForInstance_*.json; do
     echo $i
     oracle-compute add orchestration $i -f json -p $pwdFilePath
     sleep 2
 done
 
+# Adding Master orchestration templates to coordinate storage and instance provisioning sequence
 for i in generatedTemplateForMaster_*.json; do
     echo $i
     oracle-compute add orchestration $i -f json -p $pwdFilePath
@@ -75,6 +80,7 @@ for i in generatedTemplateForMaster_*.json; do
 done
 sleep 30
 
+# Executing Master orchestration templates to provision DSE nodes and DSE OpsCenter
 oracle-compute discover orchestration $OPC_USER -p $pwdFilePath | grep Master > generatedTemplateForMasterPlanWithHeader.txt
 sed -e '1,1d' < generatedTemplateForMasterPlanWithHeader.txt  > generatedTemplateForMasterPlanWithoutHeader.txt
 while read line
