@@ -74,17 +74,13 @@ for i in generatedTemplateForMaster_*.json; do
     sleep 2
 done
 
-for i in generatedTemplateForMaster_OpsCenter.json; do
-    echo $i
-    oracle-compute start orchestration $OPC_USER/DataStax_Master_Plan_OpsCenter -p $pwdFilePath
-done
 
-sleep 15
-COUNTER=0
-for i in generatedTemplateForMaster_DSE_*.json; do
-    echo $i
-    oracle-compute start orchestration $OPC_USER/DataStax_Master_Plan_DSE_$COUNTER -p $pwdFilePath
+oracle-compute discover orchestration $OPC_USER -p $pwdFilePath | grep Master > generatedTemplateForMasterPlanWithHeader.txt
+sed -e '1,1d' < generatedTemplateForMasterPlanWithHeader.txt  > generatedTemplateForMasterPlanWithoutHeader.txt
+while read line
+do
+    oracle-compute start orchestration $line -p $pwdFilePath
     sleep 5
-    let COUNTER=COUNTER+1
-done
+done < generatedTemplateForMasterPlanWithoutHeader.txt
+
 
