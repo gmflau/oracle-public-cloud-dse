@@ -234,6 +234,7 @@ with open('generatedTemplateForMaster_OpsCenter.json', 'w') as outputFile:
 #### Provision DSE nodes
 
 # Provision cloud vm instance for DSE nodes
+index = 0
 for location, storage_vols in storage_pool.items():
 
     # there is only one opscenter in our environment
@@ -242,16 +243,16 @@ for location, storage_vols in storage_pool.items():
     masterTemplate = copy.deepcopy(generatedTemplateForMaster) 
 
     if location != 'opscenter':
-        index = 0
+
         for storage_disks in storage_vols:
 
 	    ## Initialize orchestration templates and create unique plans
 	    storageTemplate = copy.deepcopy(generatedTemplateForStorage)
 	    instanceTemplate = copy.deepcopy(generatedTemplateForInstance)
 	    masterTemplate = copy.deepcopy(generatedTemplateForMaster)
-	    storage_plan = OPC_USER + "/DataStax_Storage_Plan_DSE_" + location + "_" + str(index)
-	    instance_plan = OPC_USER + "/DataStax_Instance_Plan_DSE_" + location + "_" + str(index)
-	    master_plan = OPC_USER + "/DataStax_Master_Plan_DSE_" + location + "_" + str(index)
+	    storage_plan = OPC_USER + "/DataStax_Storage_Plan_DSE_" + str(index)
+	    instance_plan = OPC_USER + "/DataStax_Instance_Plan_DSE_" + str(index)
+	    master_plan = OPC_USER + "/DataStax_Master_Plan_DSE_" + str(index)
 
             ## Generate a hostname
 	    hostname = "dse.ent.host." + location + "." + str(index)
@@ -267,7 +268,7 @@ for location, storage_vols in storage_pool.items():
 	    storageTemplate['name'] = storage_plan
 
             # Generate storage orchestration plan 
-	    with open('generatedTemplateForStorage_DSE_' + location + "_" + str(index) + '.json', 'w') as outputFile:
+	    with open('generatedTemplateForStorage_DSE_' + str(index) + '.json', 'w') as outputFile:
     	       json.dump(storageTemplate, outputFile, indent=4, ensure_ascii=False)
 
 
@@ -280,7 +281,7 @@ for location, storage_vols in storage_pool.items():
 	    instanceTemplate['name'] = instance_plan
 
             # Generate instance orchestration plan
-	    with open('generatedTemplateForInstance_DSE_' + location + "_" + str(index) + '.json', 'w') as outputFile:
+	    with open('generatedTemplateForInstance_DSE_' + str(index) + '.json', 'w') as outputFile:
                json.dump(instanceTemplate, outputFile, indent=4, ensure_ascii=False)
 
 
@@ -290,10 +291,9 @@ for location, storage_vols in storage_pool.items():
 	    masterTemplate['oplans'][1]['objects'][0]['name'] = instance_plan
 
             # Generate master orchestration plan
-	    with open('generatedTemplateForMaster_DSE_' + location + "_" + str(index) + '.json', 'w') as outputFile:
+	    with open('generatedTemplateForMaster_DSE_' + str(index) + '.json', 'w') as outputFile:
                json.dump(masterTemplate, outputFile, indent=4, ensure_ascii=False)
 
             index += 1
-
 
 
