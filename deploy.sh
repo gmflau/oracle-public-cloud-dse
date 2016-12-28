@@ -53,7 +53,7 @@ sed -e '1,1d' < ipListWithHeader.txt > ipListWithoutHeader.txt
 
 
 #### Generate storage, compute and master plan OPC CLI orchestration templates
-python main.py
+python main.py $sshPublicKeyFilePath
 
 #### Building DSE specific security lists for DSE nodes and associated security rules
 oracle-compute add orchestration generatedTemplateForSecurityList.json -f json -p $pwdFilePath
