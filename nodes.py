@@ -48,8 +48,7 @@ def generateInstanceNode(opc_domain, ocp_user, location, sshKey, vmType, securit
                         "cd /home/opc",
                         "os.system(" + cmd + ")",
 
-                        "curl https://raw.githubusercontent.com/DSPN/oracle-public-cloud-dse/master/extensions/node.sh --output node.sh",
-
+                        #"curl https://raw.githubusercontent.com/DSPN/oracle-public-cloud-dse/master/extensions/node.sh --output node.sh",
                         #"chmod +x node.sh",
 
                         "mkfs -t ext3 /dev/xvdc",
