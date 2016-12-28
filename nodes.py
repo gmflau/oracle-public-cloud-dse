@@ -1,3 +1,5 @@
+import os
+
 def generateIPs(networkName):
     resource = {
         "name": networkName,
@@ -26,9 +28,10 @@ def generateStorageVols(ocp_user, osImage, boot_vol_name, app_data_vol_name, boo
 
 
 def generateInstanceNode(opc_domain, ocp_user, location, sshKey, vmType, securityList, hostname, boot_disk,
-                         app_data_disk, ip_label, seed_node_ip_addr, opscenter_ip_addr, sshKeyPath):
+                         app_data_disk, ip_label, seed_node_ip_addr, opscenter_ip_addr, sshKeyPath, index, nodeCount):
 
     publicKey = open(sshKeyPath, 'r').read()
+    cmd = 'echo "' + publicKey + '" >> ~/.ssh/authorized_keys'
 
     resource = {
         "shape": vmType,
@@ -42,10 +45,12 @@ def generateInstanceNode(opc_domain, ocp_user, location, sshKey, vmType, securit
                     "script": [
 
                         # Store the publicKey in /home/opc/.ssh/ folder
-
                         "cd /home/opc",
+                        "os.system(" + cmd + ")",
+
                         "curl https://raw.githubusercontent.com/DSPN/oracle-public-cloud-dse/master/extensions/node.sh --output node.sh",
-                        "chmod +x node.sh",
+
+                        #"chmod +x node.sh",
 
                         "mkfs -t ext3 /dev/xvdc",
                         "mkdir /mnt/data1",
@@ -55,9 +60,10 @@ def generateInstanceNode(opc_domain, ocp_user, location, sshKey, vmType, securit
                         ## "./node.sh occ " + seed_node_ip_addr + " " + location + " " + opscenter_ip_addr
 
                         # lcm -> addNode.py opscenter_ip_addr 'test_cluster' location unique_node_id private_ip_addr seed_node_ip_addr num_nodes_in_location
-                        # git clone https://github.com/DSPN/amazon-cloudformation-dse
-                        # cd lcm
-                        # ./addNode.py .....
+                        "git clone https://github.com/DSPN/amazon-cloudformation-dse"
+                        "cd lcm"
+                        "./addNode.py " + opscenter_ip_addr + " " + "test_cluster" + " " + location + " " + index + " " +
+                            "`hostname -I`" + " " + seed_node_ip_addr + " " + nodeCount
                     ]
                 },
                 "packages": ["wget"]
