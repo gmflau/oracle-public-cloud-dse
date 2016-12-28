@@ -1,6 +1,10 @@
 import json
 import copy
 import nodes
+import sys
+
+# Get publicKeyPath
+publicKeyPath = sys.argv[1]
 
 ip_pool = []
 ip_address_list = {}
@@ -274,9 +278,8 @@ for location, storage_vols in storage_pool.items():
 
 	    ## Create instance orchestratoin template
             resources = nodes.generateInstanceNode(OPC_DOMAIN, OPC_USER, location, sshKey, vmType, securityList,
-                                                   hostname,
-                                                   storage_disks[0], storage_disks[1], ip_pool.pop(),
-                                                   seed_node_ip_addr, opscenter_node_ip_addr)
+                                                   hostname, storage_disks[0], storage_disks[1], ip_pool.pop(),
+                                                   seed_node_ip_addr, opscenter_node_ip_addr, publicKeyPath)
             instanceTemplate['oplans'][0]['objects'][0]['instances'].append(resources)
 	    instanceTemplate['name'] = instance_plan
 

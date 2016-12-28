@@ -15,14 +15,18 @@ mv ipListWithoutHeader.txt $timestamp_folder
 sshKeyName=$1
 
 ##### Retrieve ssh public key's fullpath name
-sshKeyFilePath=$2
+sshPublicKeyFilePath=$2
 
 ##### Retrieve the full path of a file storing your Oracle CLI's password
 # Make sure you "chmod 600" on it
 pwdFilePath=$3
 
+##### Retrieve ssh private key's fullpath name
+# Make sure you "chmod 600" on it
+sshPrivateKeyFilePath=$4
+
 ##### Add public ssh-key to your Oracle Cloud environment
-oracle-compute add sshkey $OPC_USER/$sshKeyName $sshKeyFilePath -p $pwdFilePath
+oracle-compute add sshkey $OPC_USER/$sshKeyName $sshPublicKeyFilePath -p $pwdFilePath
 
 
 ##### Building DataStax Cassandra cluster and OpsCenter
@@ -80,12 +84,26 @@ for i in generatedTemplateForMaster_*.json; do
 done
 sleep 10
 
-# Executing Master orchestration templates to provision DSE nodes and DSE OpsCenter
-oracle-compute discover orchestration $OPC_USER -p $pwdFilePath | grep Master > generatedTemplateForMasterPlans.txt
+
+# Executing Master orchestration template to provision DSE OpsCenter
+oracle-compute discover orchestration $OPC_USER -p $pwdFilePath | grep Master_OpsCenter > generatedTemplateForMasterPlan_OpsCenter.txt
 while read line
 do
     oracle-compute start orchestration $line -p $pwdFilePath
     sleep 5
-done < generatedTemplateForMasterPlans.txt
+done < generatedTemplateForMasterPlan_OpsCenter.txt
 
+# Call LCM setupCluster.py
+git clone https://github.com/DSPN/amazon-cloudformation-dse
+cd lcm
+opsCenter_ip=$(head -n 1 ipListWithoutHeader.txt | awk '{print $2}')
+./setupCluster.py $opsCenter_ip test_cluster $sshPrivateKeyFilePath
+
+# Executing Master orchestration templates to provision DSE nodes
+oracle-compute discover orchestration $OPC_USER -p $pwdFilePath | grep Master_DSE > generatedTemplateForMasterPlans_DSE.txt
+while read line
+do
+    oracle-compute start orchestration $line -p $pwdFilePath
+    sleep 5
+done < generatedTemplateForMasterPlans_DSE.txt
 
