@@ -105,7 +105,7 @@ def generateInstanceOpsCenter(opc_domain, ocp_user, sshKey, vmType, securityList
                     "failonerror": "false",
                     "script": [
                         "cd /home/opc",
-                        "curl https://raw.githubusercontent.com/DSPN/oracle-public-cloud-dse/master/extensions/opsCenter.sh --output opsCenter.sh",
+                        "curl https://raw.githubusercontent.com/DSPN/oracle-public-cloud-dse/LCM/extensions/opsCenter.sh --output opsCenter.sh",
                         "chmod +x opsCenter.sh",
                         "mkfs -t ext3 /dev/xvdc",
                         "mkdir /mnt/data1",
