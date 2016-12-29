@@ -95,7 +95,7 @@ done < generatedTemplateForMasterPlan_OpsCenter.txt
 
 # Call LCM setupCluster.py
 git clone https://github.com/DSPN/amazon-cloudformation-dse
-cd lcm
+cd amazon-cloudformation-dse/lcm
 opsCenter_ip=$(head -n 1 ipListWithoutHeader.txt | awk '{print $2}')
 ./setupCluster.py $opsCenter_ip test_cluster $sshPrivateKeyFilePath
 

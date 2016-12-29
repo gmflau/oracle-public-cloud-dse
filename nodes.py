@@ -60,7 +60,7 @@ def generateInstanceNode(opc_domain, ocp_user, location, sshKey, vmType, securit
 
                         # lcm -> addNode.py opscenter_ip_addr 'test_cluster' location unique_node_id private_ip_addr seed_node_ip_addr num_nodes_in_location
                         "git clone https://github.com/DSPN/amazon-cloudformation-dse",
-                        "cd lcm",
+                        "cd amazon-cloudformation-dse/lcm",
                         "./addNode.py " + opscenter_ip_addr + " " + "test_cluster" + " " + location + " " + index + " " +
                             "`hostname -I`" + " " + seed_node_ip_addr + " " + nodeCount
                     ]
