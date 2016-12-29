@@ -97,7 +97,7 @@ done < generatedTemplateForMasterPlan_OpsCenter.txt
 opsCenter_ip=$(head -n 1 ipListWithoutHeader.txt | awk '{print $2}')
 git clone https://github.com/DSPN/amazon-cloudformation-dse
 cd amazon-cloudformation-dse/lcm
-./setupCluster.py $opsCenter_ip test_cluster $sshPrivateKeyFilePath
+./setupCluster.py --opsc-ip $opsCenter_ip --clustername test_cluster --privkey $sshPrivateKeyFilePath
 
 # Executing Master orchestration templates to provision DSE nodes
 oracle-compute discover orchestration $OPC_USER -p $pwdFilePath | grep Master_DSE > generatedTemplateForMasterPlans_DSE.txt

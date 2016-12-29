@@ -64,8 +64,8 @@ def generateInstanceNode(opc_domain, ocp_user, location, sshKey, vmType, securit
                         "pip install requests",
                         "git clone https://github.com/DSPN/amazon-cloudformation-dse",
                         "cd amazon-cloudformation-dse/lcm",
-                        "./addNode.py " + opscenter_ip_addr + " " + "test_cluster" + " " + location + " " + index + " " +
-                            "`hostname -I`" + " " + seed_node_ip_addr + " " + nodeCount
+                        "./addNode.py --opsc-ip" + opscenter_ip_addr + " " + "--clustername test_cluster" + " --dcname " + location + " --nodeid " + index + " --privip " +
+                            "`hostname -I`" + " --pubip " + seed_node_ip_addr + " --dcsize " + nodeCount
                     ]
                 },
                 "packages": ["wget"]
