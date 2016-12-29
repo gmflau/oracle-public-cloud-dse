@@ -86,7 +86,7 @@ sleep 10
 
 
 # Executing Master orchestration template to provision DSE OpsCenter
-oracle-compute discover orchestration $OPC_USER -p $pwdFilePath | grep Master_OpsCenter > generatedTemplateForMasterPlan_OpsCenter.txt
+oracle-compute discover orchestration $OPC_USER -p $pwdFilePath | grep Master_Plan_OpsCenter > generatedTemplateForMasterPlan_OpsCenter.txt
 while read line
 do
     oracle-compute start orchestration $line -p $pwdFilePath
@@ -100,7 +100,7 @@ cd amazon-cloudformation-dse/lcm
 ./setupCluster.py --opsc-ip $opsCenter_ip --clustername test_cluster --privkey $sshPrivateKeyFilePath
 
 # Executing Master orchestration templates to provision DSE nodes
-oracle-compute discover orchestration $OPC_USER -p $pwdFilePath | grep Master_DSE > generatedTemplateForMasterPlans_DSE.txt
+oracle-compute discover orchestration $OPC_USER -p $pwdFilePath | grep Master_Plan_DSE > generatedTemplateForMasterPlans_DSE.txt
 while read line
 do
     oracle-compute start orchestration $line -p $pwdFilePath
