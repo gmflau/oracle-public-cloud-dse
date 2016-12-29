@@ -1,5 +1,7 @@
 #!/bin/bash
 
+rm -fr ../amazon-cloudformation-dse
+
 pwdFilePath=$1
 
 oracle-compute discover orchestration $OPC_USER -p $pwdFilePath > orchestrations.txt
