@@ -59,6 +59,9 @@ def generateInstanceNode(opc_domain, ocp_user, location, sshKey, vmType, securit
                         ## "./node.sh occ " + seed_node_ip_addr + " " + location + " " + opscenter_ip_addr
 
                         # lcm -> addNode.py opscenter_ip_addr 'test_cluster' location unique_node_id private_ip_addr seed_node_ip_addr num_nodes_in_location
+                        "rpm -ivh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm",
+                        "yum -y install python -setuptools python-pip",
+                        "pip install requests",
                         "git clone https://github.com/DSPN/amazon-cloudformation-dse",
                         "cd amazon-cloudformation-dse/lcm",
                         "./addNode.py " + opscenter_ip_addr + " " + "test_cluster" + " " + location + " " + index + " " +
