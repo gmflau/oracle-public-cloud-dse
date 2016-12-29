@@ -100,6 +100,7 @@ cd amazon-cloudformation-dse/lcm
 ./setupCluster.py --opsc-ip $opsCenter_ip --clustername test_cluster --privkey $sshPrivateKeyFilePath
 
 # Executing Master orchestration templates to provision DSE nodes
+cd ../..
 oracle-compute discover orchestration $OPC_USER -p $pwdFilePath | grep Master_Plan_DSE > generatedTemplateForMasterPlans_DSE.txt
 while read line
 do
