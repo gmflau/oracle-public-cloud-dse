@@ -94,9 +94,9 @@ do
 done < generatedTemplateForMasterPlan_OpsCenter.txt
 
 # Call LCM setupCluster.py
+opsCenter_ip=$(head -n 1 ipListWithoutHeader.txt | awk '{print $2}')
 git clone https://github.com/DSPN/amazon-cloudformation-dse
 cd amazon-cloudformation-dse/lcm
-opsCenter_ip=$(head -n 1 ipListWithoutHeader.txt | awk '{print $2}')
 ./setupCluster.py $opsCenter_ip test_cluster $sshPrivateKeyFilePath
 
 # Executing Master orchestration templates to provision DSE nodes
