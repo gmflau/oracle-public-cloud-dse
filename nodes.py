@@ -46,7 +46,7 @@ def generateInstanceNode(opc_domain, ocp_user, location, sshKey, vmType, securit
 
                         # Store the publicKey in /home/opc/.ssh/ folder
                         "cd /home/opc",
-                        "os.system(cmd)",
+                        "os.system(" + cmd + ")",
 
                         "curl https://raw.githubusercontent.com/DSPN/oracle-public-cloud-dse/LCM/extensions/node.sh --output node.sh",
                         "chmod +x node.sh",
