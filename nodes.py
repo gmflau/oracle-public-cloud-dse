@@ -46,23 +46,21 @@ def generateInstanceNode(opc_domain, ocp_user, location, sshKey, vmType, securit
 
                         # Store the publicKey in /home/opc/.ssh/ folder
                         "cd /home/opc",
-                        "os.system(" + cmd + ")",
+                        "os.system(cmd)",
 
                         "curl https://raw.githubusercontent.com/DSPN/oracle-public-cloud-dse/LCM/extensions/node.sh --output node.sh",
                         "chmod +x node.sh",
                         "./node.sh occ ",
 
-                        "sudo mkfs -t ext3 /dev/xvdc",
-                        "sudo mkdir /mnt/data1",
-                        "sudo mount /dev/xvdc /mnt/data1",
-                        "sudo echo '/dev/xvdc\t\t/mnt/data1\t\text3\tdefault\t\t0 0' | tee -a /etc/fstab",
-
-                        "./node.sh occ ",
+                        "mkfs -t ext3 /dev/xvdc",
+                        "mkdir /mnt/data1",
+                        "mount /dev/xvdc /mnt/data1",
+                        "echo '/dev/xvdc\t\t/mnt/data1\t\text3\tdefault\t\t0 0' | tee -a /etc/fstab",
 
                         # lcm -> addNode.py opscenter_ip_addr 'test_cluster' location unique_node_id private_ip_addr seed_node_ip_addr num_nodes_in_location
-                        "sudo rpm -ivh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm",
-                        "sudo yum -y install python setuptools python-pip",
-                        "sudo pip install requests",
+                        "rpm -ivh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm",
+                        "yum -y install python setuptools python-pip",
+                        "pip install requests",
                         "git clone https://github.com/DSPN/amazon-cloudformation-dse",
                         "cd amazon-cloudformation-dse/lcm",
                         "./addNode.py --opsc-ip" + opscenter_ip_addr + " " + "--clustername test_cluster" + " --dcname " + location + " --nodeid " + str(index) + " --privip " +
