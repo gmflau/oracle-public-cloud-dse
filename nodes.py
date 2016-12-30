@@ -28,7 +28,7 @@ def generateStorageVols(ocp_user, osImage, boot_vol_name, app_data_vol_name, boo
 
 
 def generateInstanceNode(opc_domain, ocp_user, location, sshKey, vmType, securityList, hostname, boot_disk,
-                         app_data_disk, ip_label, seed_node_ip_addr, opscenter_ip_addr, sshKeyPath, index, nodeCount):
+                         app_data_disk, ip_label, node_ip_addr, opscenter_ip_addr, sshKeyPath, index, nodeCount):
 
     publicKey = open(sshKeyPath, 'r').read()
     cmd = 'echo "' + publicKey + '" >> ~/.ssh/authorized_keys'
@@ -65,7 +65,7 @@ def generateInstanceNode(opc_domain, ocp_user, location, sshKey, vmType, securit
                         "git clone https://github.com/DSPN/amazon-cloudformation-dse",
                         "cd amazon-cloudformation-dse/lcm",
                         "./addNode.py --opsc-ip" + opscenter_ip_addr + " " + "--clustername test_cluster" + " --dcname " + location + " --nodeid " + str(index) + " --privip " +
-                            "`hostname -I`" + " --pubip " + seed_node_ip_addr + " --dcsize " + str(nodeCount)
+                            "`hostname -I`" + " --pubip " + node_ip_addr + " --dcsize " + str(nodeCount)
                     ]
                 },
                 "packages": ["wget"]
