@@ -288,7 +288,7 @@ for location, storage_vols in storage_pool.items():
             # Generate instance orchestration plan
             with open('generatedTemplateForInstance_DSE_' + str(index) + '.json', 'w') as outputFile:
                    json.dump(instanceTemplate, outputFile, indent=4, ensure_ascii=False)
-    
+
 
             ## Create master orchestration template
             masterTemplate['name'] = master_plan
