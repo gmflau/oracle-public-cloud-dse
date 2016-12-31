@@ -66,7 +66,7 @@ def generateInstanceNode(opc_domain, ocp_user, location, sshKey, vmType, securit
                             "`hostname -I`" + " --pubip " + node_ip_addr + " --dcsize " + str(nodeCount)
                     ]
                 },
-                "packages": ["wget"]
+                "packages": ["wget", "git"]
             }
         },
         "networking": {
