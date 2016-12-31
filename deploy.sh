@@ -84,7 +84,6 @@ for i in generatedTemplateForMaster_*.json; do
 done
 sleep 10
 
-
 # Executing Master orchestration template to provision DSE OpsCenter
 oracle-compute discover orchestration $OPC_USER -p $pwdFilePath | grep Master_Plan_OpsCenter > generatedTemplateForMasterPlan_OpsCenter.txt
 while read line
@@ -93,6 +92,9 @@ do
     sleep 5
 done < generatedTemplateForMasterPlan_OpsCenter.txt
 
+# Put a delay of 20 minutes for OpsCenter deployment
+sleep 1200
+    
 # Call LCM setupCluster.py
 opsCenter_ip=$(tail -1 ipListWithoutHeader.txt | awk '{print $2}')
 git clone https://github.com/DSPN/amazon-cloudformation-dse
