@@ -92,14 +92,11 @@ do
     sleep 5
 done < generatedTemplateForMasterPlan_OpsCenter.txt
 
-# Put a delay of 20 minutes for OpsCenter deployment
-sleep 1200
-    
 # Call LCM setupCluster.py
 opsCenter_ip=$(tail -1 ipListWithoutHeader.txt | awk '{print $2}')
 git clone https://github.com/DSPN/amazon-cloudformation-dse
 cd amazon-cloudformation-dse/lcm
-./setupCluster.py --opsc-ip $opsCenter_ip --clustername test_cluster --privkey $sshPrivateKeyFilePath
+./setupCluster.py --user opc --pause 60 --trys 40 --opsc-ip $opsCenter_ip --clustername test_cluster --privkey $sshPrivateKeyFilePath
 
 # Executing Master orchestration templates to provision DSE nodes
 cd ../..
