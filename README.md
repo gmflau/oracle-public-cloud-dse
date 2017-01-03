@@ -96,4 +96,4 @@ For example:
  
 It typically takes about 25 minutes to provision a cluster comprising four DataStax Enterprise nodes and one OpsCenter instance.  When all your DataStax OCC instances are all up and running, you can point your web browser to your OpsCenter instance. When the provision is complete, OpsCenter will be accessible on port 8888 of the OpsCenter node as shown below:
  
-![Alt](./img/DataStax-OpsCenter.png "DataStax OpsCenter")
+![Alt](./img/OpsCenter.png "DataStax OpsCenter")
