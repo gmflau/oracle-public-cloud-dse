@@ -1,4 +1,4 @@
-# oracle-public-cloud-dse [LCM]
+# oracle-public-cloud-dse [LCM] - Experimental
 
 Scripts for deploying DataStax Enterprise (DSE) to Oracle Compute Cloud (OCC)
 
