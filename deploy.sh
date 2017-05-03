@@ -101,7 +101,7 @@ cd install-datastax-ubuntu-5.5.3/bin/lcm/
 ./setupCluster.py --user opc --pause 60 --trys 40 --opsc-ip $opsCenter_ip --clustername test_cluster --privkey $sshPrivateKeyFilePath --datapath /mnt/data1
 
 # Executing Master orchestration templates to provision DSE nodes
-cd ../..
+cd ../../..
 oracle-compute discover orchestration $OPC_USER -p $pwdFilePath | grep Master_Plan_DSE > generatedTemplateForMasterPlans_DSE.txt
 while read line
 do
