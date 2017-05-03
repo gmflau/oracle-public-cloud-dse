@@ -61,10 +61,12 @@ def generateInstanceNode(opc_domain, ocp_user, location, sshKey, vmType, securit
                         "yum -y install python setuptools python-pip",
                         "pip install requests",
                         "pip install argparse",
-                        "git clone https://github.com/DSPN/amazon-cloudformation-dse",
-                        "cd amazon-cloudformation-dse/lcm",
+                       
+                        "wget https://github.com/DSPN/install-datastax-ubuntu/archive/5.5.3.zip",
+                        "unzip 5.5.3.zip",
+                        "cd install-datastax-ubuntu-5.5.3/bin/lcm/",
                         "./addNode.py --opsc-ip " + opscenter_ip_addr + " " + "--clustername test_cluster" + " --dcname " + location + " --nodeid " + str(index) + " --privip " +
-                            "`hostname -I`" + " --pubip " + node_ip_addr + " --dcsize " + str(nodeCount)
+                        "`hostname -I`" + " --pubip " + node_ip_addr + " --dcsize " + str(nodeCount) + " --rack rack1" + " --dbpasswd datastax1!"
                     ]
                 },
                 "packages": ["wget", "git"]

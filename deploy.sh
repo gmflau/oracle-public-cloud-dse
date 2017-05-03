@@ -94,9 +94,11 @@ done < generatedTemplateForMasterPlan_OpsCenter.txt
 
 # Call LCM setupCluster.py
 opsCenter_ip=$(tail -1 ipListWithoutHeader.txt | awk '{print $2}')
-git clone https://github.com/DSPN/amazon-cloudformation-dse
-cd amazon-cloudformation-dse/lcm
-./setupCluster.py --user opc --pause 60 --trys 40 --opsc-ip $opsCenter_ip --clustername test_cluster --privkey $sshPrivateKeyFilePath
+
+wget https://github.com/DSPN/install-datastax-ubuntu/archive/5.5.3.zip
+unzip 5.5.3.zip
+cd install-datastax-ubuntu-5.5.3/bin/lcm/
+./setupCluster.py --user opc --pause 60 --trys 40 --opsc-ip $opsCenter_ip --clustername test_cluster --privkey $sshPrivateKeyFilePath --datapath /mnt/data1
 
 # Executing Master orchestration templates to provision DSE nodes
 cd ../..
