@@ -53,15 +53,15 @@ In this directory, there is a file called 'clusterParameters.json' that looks li
    "locations": { 
     "Oracle_Public_Cloud_DC_us1": "https://api-z27.compute.us6.oraclecloud.com/"
   },
-  "OPC_DOMAIN" : "/Compute-usoracle19809",
-  "OPC_USER" : "/Compute-usoracle19809/gilbert.lau@datastax.com",
+  "OPC_DOMAIN" : "/Compute-usoracle16406",
+  "OPC_USER" : "/Compute-usoracle16406/gilbert.lau@datastax.com",
   "nodeCount" : 2,
   "vmType" : "oc4",
   "osImage": "/oracle/public/OL_6.7_3GB-1.3.0-20160411",
   "bootDriveSizeInBytes" : "10737418240",
   "appDataDriveSizeInBytes" : "42949672960",
   "networkPrefix" : "DSE_IP_",
-  "sshKey": "DSE_opc_key",
+  "sshKey": "dse-occ-ssh",
   "securityList": "DSE_Seclist",
   "securityRules": "DSE_Rules"
  }
