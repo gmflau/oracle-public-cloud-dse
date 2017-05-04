@@ -13,7 +13,7 @@ The DataStax [Oracle Cloud Deployment Guide](https://github.com/DSPN/oracle-clou
 
 ## Deploying to Oracle Compute Cloud
 
-This document describes the required steps to deploy a DataStax Enterprise (DSE) cluster in an Oracle Compute Cloud (OCC) environment.  Below is the high level sequence of steps you will need to follow in order to successfully deploy your DSE cluster.
+This document describes how to deploy a DataStax Enterprise (DSE) cluster in an Oracle Compute Cloud (OCC) environment.  Below is the high level procedure to successfully deploy a DSE cluster.
 
 1. Obtain your Oracle Compute Cloud (OCC) account
 2. Set up your workstation with Oracle Compute Cloud Service Command Line Tool
@@ -25,28 +25,28 @@ This document describes the required steps to deploy a DataStax Enterprise (DSE)
 If you do not have an account with OCC yet, please follow this [link](https://myaccount.cloud.oracle.com/mycloud/faces/trialsignup.jspx?serviceType=IAASMB) to apply for one.
 
 ### 2. Set up your workstation with OCC Command Line Tool
-With regards to where you want your workstation to be, you have two options.  The first option is to create a local Oracle Enterprise Linux 6.7 virtual machine on your destktop.  The second option is to create an OEL 6.7 instance in your OCC account.  
+You have two options to set up your workstation.  The first option is to create a local Oracle Enterprise Linux 6.7 virtual machine on your destktop.  The second option is to create an OEL 6.7 virtual machine instance inside your OCC account.  
         
 Once you got this virtual machine or OCC instance up and running, you can follow this [link](http://docs.oracle.com/cloud/latest/stcomputecs/STCLR/GUID-62B0B2BD-A95F-4F82-B144-8C1DBA8760E9.htm#STCLR-GUID-62B0B2BD-A95F-4F82-B144-8C1DBA8760E9) 
-to set up your Oracle Compute Cloud Service CLI and the required environment variables and files.
+to set up your Oracle Compute Cloud Service CLI, the required environment variables, and other files.
 
-### 3. Install DSPN assets on your workstation to provision DSE cluster in OCC
-At this point, you should have your OCC CLI environment variables namely OPC_API, OPC_USER, and a plain-text file storing your OCC account's password all setup already.  For the environment variables, I would highly recommend you to store them in your .bash_profile file if you have not done so already.
+### 3. Install DSPN assets on your workstation to provision a DSE cluster in OCC
+At this point, you should have your OCC CLI environment variables namely OPC_API, OPC_USER, and a plain-text file storing your OCC account's password all setup already. I would highly encourage you to store your environment variables in your .bash_profile file.
 
-In your local root or user account of your workstation, please do the followings:
+In your local root or user account of your workstation, you need to do the followings:
 
 Follow this [link](https://docs.oracle.com/cloud/latest/stcomputecs/STCSG/GUID-EE29085A-79B1-4A3A-BF25-A2A9516EC5F3.htm#OCSUG149) to generate an SSH key pair so you can use the private key to log in to your DataStax cluster instances using SSH.
  
-Clone the repo localy using the command:
+Clone the repo localy using the following command:
  
     git clone https://github.com/DSPN/oracle-public-cloud-dse.git
 
 ### 4. Update the clusterParameters.json file to reflect your OCC environment settings
-Run the command
-
+Run tis command:
+```
     cd oracle-public-cloud-dse
-
-In that directory is a file called 'clusterParameters.json' that looks like the following.
+```
+In this directory, there is a file called 'clusterParameters.json' that looks like the following.
 
 ```json
  {
@@ -94,6 +94,6 @@ For example:
 
     ./deploy.sh  dse-occ-ssh  ~opc/.ssh/dse_opc_key.pub  ~opc/oracle-compute-cloud-dse-master/pwdFile ~opc/.ssh/dse_opc_key guesswhat!
  
-It typically takes about 25 minutes to provision a cluster comprising four DataStax Enterprise nodes and one OpsCenter instance.  When all your DataStax OCC instances are all up and running, you can point your web browser to your OpsCenter instance. When the provision is complete, OpsCenter will be accessible on port 8888 of the OpsCenter node as shown below:
+It typically takes about 25 minutes to provision a cluster comprising four DataStax Enterprise nodes and one OpsCenter instance.  When all your DataStax OCC instances are all up and running, you can point your web browser to your OpsCenter instance. Your OpsCenter's dashboard will be accessible at port 8888 as shown below:
  
 ![Alt](./img/DataStax-OpsCenter.png "DataStax OpsCenter")
