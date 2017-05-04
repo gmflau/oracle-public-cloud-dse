@@ -88,11 +88,11 @@ In the clusterParameters.json template, you will need to edit the following:
 
 At this point, you can run the following command to deploy your DataStax Enterprise cluster:
 
-    ./deploy.sh  \<sshKey>  \<public ssh-key's full filename>  \<full filename of the plain-text file storing your OCC password>
+    ./deploy.sh  \<sshKey>  \<public ssh-key's full filename>  \<full filename of the plain-text file storing your OCC password> \<private ssh-key's full filename> \<cassandra DB user's password>
 
 For example:
 
-    ./deploy.sh  DSE_opc_key  ~opc/.sshd/dse_opc_key.pub  ~/opc/oracle-compute-cloud-dse-master/pwdFile
+    ./deploy.sh  dse-occ-ssh  ~opc/.ssh/dse_opc_key.pub  ~opc/oracle-compute-cloud-dse-master/pwdFile ~opc/.ssh/dse_opc_key guesswhat!
  
 It typically takes about 25 minutes to provision a cluster comprising four DataStax Enterprise nodes and one OpsCenter instance.  When all your DataStax OCC instances are all up and running, you can point your web browser to your OpsCenter instance. When the provision is complete, OpsCenter will be accessible on port 8888 of the OpsCenter node as shown below:
  
