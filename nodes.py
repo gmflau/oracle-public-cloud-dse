@@ -55,6 +55,10 @@ def generateInstanceNode(opc_domain, ocp_user, location, sshKey, vmType, securit
                         "mkdir /mnt/data1",
                         "mount /dev/xvdc /mnt/data1",
                         "echo '/dev/xvdc\t\t/mnt/data1\t\text3\tdefault\t\t0 0' | tee -a /etc/fstab",
+                        "mkdir -p /mnt/data1/data",
+                        "mkdir -p /mnt/data1/saved_caches",
+                        "mkdir -p /mnt/data1/commitlog",
+                        "chmod -R 777 /mnt/data1",
 
                         # lcm -> addNode.py opscenter_ip_addr 'test_cluster' location unique_node_id private_ip_addr seed_node_ip_addr num_nodes_in_location
                         "rpm -ivh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm",

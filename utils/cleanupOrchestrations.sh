@@ -1,6 +1,7 @@
 #!/bin/bash
 
-rm -fr ../amazon-cloudformation-dse
+rm -fr ../install-datastax-ubuntu-5.5.3
+rm -fr ../5.5.3.zip
 
 pwdFilePath=$1
 
