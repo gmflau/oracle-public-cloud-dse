@@ -28,7 +28,7 @@ def generateStorageVols(ocp_user, osImage, boot_vol_name, app_data_vol_name, boo
 
 
 def generateInstanceNode(opc_domain, ocp_user, location, sshKey, vmType, securityList, hostname, boot_disk,
-                         app_data_disk, ip_label, node_ip_addr, opscenter_ip_addr, sshKeyPath, index, nodeCount):
+                         app_data_disk, ip_label, node_ip_addr, opscenter_ip_addr, sshKeyPath, index, nodeCount, cassandraPasswd):
 
     publicKey = open(sshKeyPath, 'r').read()
     cmd = 'echo "' + publicKey + '" >> ~/.ssh/authorized_keys'
@@ -70,7 +70,7 @@ def generateInstanceNode(opc_domain, ocp_user, location, sshKey, vmType, securit
                         "unzip 5.5.3.zip",
                         "cd install-datastax-ubuntu-5.5.3/bin/lcm/",
                         "./addNode.py --opsc-ip " + opscenter_ip_addr + " " + "--clustername test_cluster" + " --dcname " + location + " --nodeid " + str(index) + " --privip " +
-                        "`hostname -I`" + " --pubip " + node_ip_addr + " --dcsize " + str(nodeCount) + " --rack rack1" + " --dbpasswd datastax1!"
+                        "`hostname -I`" + " --pubip " + node_ip_addr + " --dcsize " + str(nodeCount) + " --rack rack1" + " --dbpasswd " + cassandraPasswd
                     ]
                 },
                 "packages": ["wget", "git"]

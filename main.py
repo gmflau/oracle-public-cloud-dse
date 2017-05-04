@@ -5,6 +5,7 @@ import sys
 
 # Get publicKeyPath
 publicKeyPath = sys.argv[1]
+cassandraPasswd = sys.argv[2]
 
 ip_pool = []
 ip_address_list = {}
@@ -281,7 +282,7 @@ for location, storage_vols in storage_pool.items():
             node_ip_addr = ip_address_list[node_ip_label]
             resources = nodes.generateInstanceNode(OPC_DOMAIN, OPC_USER, location, sshKey, vmType, securityList,
                                                        hostname, storage_disks[0], storage_disks[1], node_ip_label,
-                                                       node_ip_addr, opscenter_node_ip_addr, publicKeyPath, index, nodeCount)
+                                                       node_ip_addr, opscenter_node_ip_addr, publicKeyPath, index, nodeCount, cassandraPasswd)
             instanceTemplate['oplans'][0]['objects'][0]['instances'].append(resources)
             instanceTemplate['name'] = instance_plan
 

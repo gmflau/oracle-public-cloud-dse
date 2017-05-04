@@ -25,6 +25,9 @@ pwdFilePath=$3
 # Make sure you "chmod 600" on it
 sshPrivateKeyFilePath=$4
 
+##### Retrieve Cassandra DB user's password
+cassandraPasswd=$5
+
 ##### Add public ssh-key to your Oracle Cloud environment
 oracle-compute add sshkey $OPC_USER/$sshKeyName $sshPublicKeyFilePath -p $pwdFilePath
 
@@ -53,7 +56,7 @@ sed -e '1,1d' < ipListWithHeader.txt > ipListWithoutHeader.txt
 
 
 #### Generate storage, compute and master plan OPC CLI orchestration templates
-python main.py $sshPublicKeyFilePath
+python main.py $sshPublicKeyFilePath $cassandraPasswd
 
 #### Building DSE specific security lists for DSE nodes and associated security rules
 oracle-compute add orchestration generatedTemplateForSecurityList.json -f json -p $pwdFilePath
