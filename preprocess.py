@@ -4,10 +4,7 @@ import copy
 
 
 # Generate IP address OCID
-
-
 ip_pool = []
-
 
 # Open DSE Cluster deployment environment file
 with open('clusterParameters.json') as inputFile:

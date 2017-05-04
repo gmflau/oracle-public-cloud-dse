@@ -1,6 +1,11 @@
 import json
 import copy
 import nodes
+import sys
+
+# Get publicKeyPath
+publicKeyPath = sys.argv[1]
+cassandraPasswd = sys.argv[2]
 
 ip_pool = []
 ip_address_list = {}
@@ -246,53 +251,54 @@ for location, storage_vols in storage_pool.items():
 
         for storage_disks in storage_vols:
 
-	    ## Initialize orchestration templates and create unique plans
-	    storageTemplate = copy.deepcopy(generatedTemplateForStorage)
-	    instanceTemplate = copy.deepcopy(generatedTemplateForInstance)
-	    masterTemplate = copy.deepcopy(generatedTemplateForMaster)
-	    storage_plan = OPC_USER + "/DataStax_Storage_Plan_DSE_" + str(index)
-	    instance_plan = OPC_USER + "/DataStax_Instance_Plan_DSE_" + str(index)
-	    master_plan = OPC_USER + "/DataStax_Master_Plan_DSE_" + str(index)
+            ## Initialize orchestration templates and create unique plans
+            storageTemplate = copy.deepcopy(generatedTemplateForStorage)
+            instanceTemplate = copy.deepcopy(generatedTemplateForInstance)
+            masterTemplate = copy.deepcopy(generatedTemplateForMaster)
+            storage_plan = OPC_USER + "/DataStax_Storage_Plan_DSE_" + str(index)
+            instance_plan = OPC_USER + "/DataStax_Instance_Plan_DSE_" + str(index)
+            master_plan = OPC_USER + "/DataStax_Master_Plan_DSE_" + str(index)
 
-            ## Generate a hostname
-	    hostname = "dse.ent.host." + location + "." + str(index)
+                ## Generate a hostname
+            hostname = "dse.ent.host." + location + "." + str(index)
 
-	    ## Create storage orchestration template
+            ## Create storage orchestration template
             boot_vol_name = storage_disks[0]
             app_data_vol_name = storage_disks[1]
-	
+
             resources = nodes.generateStorageVols(OPC_USER, osImage, boot_vol_name, app_data_vol_name,
-                                              bootDriveSizeInBytes, appDataDriveSizeInBytes)    
-	    storageTemplate['oplans'][0]['objects'].append(resources[0])
+                                                  bootDriveSizeInBytes, appDataDriveSizeInBytes)
+            storageTemplate['oplans'][0]['objects'].append(resources[0])
             storageTemplate['oplans'][0]['objects'].append(resources[1])
-	    storageTemplate['name'] = storage_plan
+            storageTemplate['name'] = storage_plan
 
-            # Generate storage orchestration plan 
-	    with open('generatedTemplateForStorage_DSE_' + str(index) + '.json', 'w') as outputFile:
-    	       json.dump(storageTemplate, outputFile, indent=4, ensure_ascii=False)
+            # Generate storage orchestration plan
+            with open('generatedTemplateForStorage_DSE_' + str(index) + '.json', 'w') as outputFile:
+                   json.dump(storageTemplate, outputFile, indent=4, ensure_ascii=False)
 
 
-	    ## Create instance orchestratoin template
+            ## Create instance orchestratoin template
+            node_ip_label = ip_pool.pop()
+            node_ip_addr = ip_address_list[node_ip_label]
             resources = nodes.generateInstanceNode(OPC_DOMAIN, OPC_USER, location, sshKey, vmType, securityList,
-                                                   hostname,
-                                                   storage_disks[0], storage_disks[1], ip_pool.pop(),
-                                                   seed_node_ip_addr, opscenter_node_ip_addr)
+                                                       hostname, storage_disks[0], storage_disks[1], node_ip_label,
+                                                       node_ip_addr, opscenter_node_ip_addr, publicKeyPath, index, nodeCount, cassandraPasswd)
             instanceTemplate['oplans'][0]['objects'][0]['instances'].append(resources)
-	    instanceTemplate['name'] = instance_plan
+            instanceTemplate['name'] = instance_plan
 
             # Generate instance orchestration plan
-	    with open('generatedTemplateForInstance_DSE_' + str(index) + '.json', 'w') as outputFile:
-               json.dump(instanceTemplate, outputFile, indent=4, ensure_ascii=False)
+            with open('generatedTemplateForInstance_DSE_' + str(index) + '.json', 'w') as outputFile:
+                   json.dump(instanceTemplate, outputFile, indent=4, ensure_ascii=False)
 
 
-	    ## Create master orchestration template
-	    masterTemplate['name'] = master_plan
-	    masterTemplate['oplans'][0]['objects'][0]['name'] = storage_plan
-	    masterTemplate['oplans'][1]['objects'][0]['name'] = instance_plan
+            ## Create master orchestration template
+            masterTemplate['name'] = master_plan
+            masterTemplate['oplans'][0]['objects'][0]['name'] = storage_plan
+            masterTemplate['oplans'][1]['objects'][0]['name'] = instance_plan
 
             # Generate master orchestration plan
-	    with open('generatedTemplateForMaster_DSE_' + str(index) + '.json', 'w') as outputFile:
-               json.dump(masterTemplate, outputFile, indent=4, ensure_ascii=False)
+            with open('generatedTemplateForMaster_DSE_' + str(index) + '.json', 'w') as outputFile:
+                   json.dump(masterTemplate, outputFile, indent=4, ensure_ascii=False)
 
             index += 1
 

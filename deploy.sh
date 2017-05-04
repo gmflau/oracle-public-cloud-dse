@@ -15,14 +15,21 @@ mv ipListWithoutHeader.txt $timestamp_folder
 sshKeyName=$1
 
 ##### Retrieve ssh public key's fullpath name
-sshKeyFilePath=$2
+sshPublicKeyFilePath=$2
 
 ##### Retrieve the full path of a file storing your Oracle CLI's password
 # Make sure you "chmod 600" on it
 pwdFilePath=$3
 
+##### Retrieve ssh private key's fullpath name
+# Make sure you "chmod 600" on it
+sshPrivateKeyFilePath=$4
+
+##### Retrieve Cassandra DB user's password
+cassandraPasswd=$5
+
 ##### Add public ssh-key to your Oracle Cloud environment
-oracle-compute add sshkey $OPC_USER/$sshKeyName $sshKeyFilePath -p $pwdFilePath
+oracle-compute add sshkey $OPC_USER/$sshKeyName $sshPublicKeyFilePath -p $pwdFilePath
 
 
 ##### Building DataStax Cassandra cluster and OpsCenter
@@ -49,7 +56,7 @@ sed -e '1,1d' < ipListWithHeader.txt > ipListWithoutHeader.txt
 
 
 #### Generate storage, compute and master plan OPC CLI orchestration templates
-python main.py
+python main.py $sshPublicKeyFilePath $cassandraPasswd
 
 #### Building DSE specific security lists for DSE nodes and associated security rules
 oracle-compute add orchestration generatedTemplateForSecurityList.json -f json -p $pwdFilePath
@@ -80,12 +87,28 @@ for i in generatedTemplateForMaster_*.json; do
 done
 sleep 10
 
-# Executing Master orchestration templates to provision DSE nodes and DSE OpsCenter
-oracle-compute discover orchestration $OPC_USER -p $pwdFilePath | grep Master > generatedTemplateForMasterPlans.txt
+# Executing Master orchestration template to provision DSE OpsCenter
+oracle-compute discover orchestration $OPC_USER -p $pwdFilePath | grep Master_Plan_OpsCenter > generatedTemplateForMasterPlan_OpsCenter.txt
 while read line
 do
     oracle-compute start orchestration $line -p $pwdFilePath
     sleep 5
-done < generatedTemplateForMasterPlans.txt
+done < generatedTemplateForMasterPlan_OpsCenter.txt
 
+# Call LCM setupCluster.py
+opsCenter_ip=$(tail -1 ipListWithoutHeader.txt | awk '{print $2}')
+
+wget https://github.com/DSPN/install-datastax-ubuntu/archive/5.5.3.zip
+unzip 5.5.3.zip
+cd install-datastax-ubuntu-5.5.3/bin/lcm/
+./setupCluster.py --user opc --pause 60 --trys 40 --opsc-ip $opsCenter_ip --clustername test_cluster --privkey $sshPrivateKeyFilePath --datapath /mnt/data1
+
+# Executing Master orchestration templates to provision DSE nodes
+cd ../../..
+oracle-compute discover orchestration $OPC_USER -p $pwdFilePath | grep Master_Plan_DSE > generatedTemplateForMasterPlans_DSE.txt
+while read line
+do
+    oracle-compute start orchestration $line -p $pwdFilePath
+    sleep 5
+done < generatedTemplateForMasterPlans_DSE.txt
 

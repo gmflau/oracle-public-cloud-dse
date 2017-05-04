@@ -1,5 +1,8 @@
 #!/bin/bash
 
+rm -fr ../install-datastax-ubuntu-5.5.3
+rm -fr ../5.5.3.zip
+
 pwdFilePath=$1
 
 oracle-compute discover orchestration $OPC_USER -p $pwdFilePath > orchestrations.txt

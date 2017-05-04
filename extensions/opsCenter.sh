@@ -13,4 +13,15 @@ yum -y install unzip
 unzip master.zip
 cd install-datastax-redhat-master/bin
 
-./opscenter.sh $cloud_type $seed_node_ip_addr
+#./opscenter.sh $cloud_type $seed_node_ip_addr
+
+./os/install_java.sh
+
+# occ currently supports OEL 6.x and has python 2.5 only
+if [ "$cloud_type" == "occ" ]; then
+  ./os/install_python27.sh
+fi
+
+./opscenter/install.sh $cloud_type
+
+./opscenter/start.sh
